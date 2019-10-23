@@ -1,0 +1,152 @@
+body {
+  font-family: Helvetica,Arial,sans-serif;
+  font-size: 15px;
+  font-weight: 300;
+  color: #333;
+}
+
+h4 {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+.red-txt {
+  color: #F96478;
+}
+
+.orange-txt {
+  color: #FF852A;
+}
+
+.yellow-txt {
+  color: #FFAD01;
+}
+
+.mint-txt {
+  color: #1ED7D2;
+}
+
+.cyan-txt {
+  color: #25B6FD;
+}
+
+.purple-txt {
+  color: #AE7CFC;
+}
+
+
+/* navbar */
+.navbar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 65px;
+  padding: 0 25px;
+  background-color: white;
+  box-shadow: 0 5px 30px rgba(0,0,0,0.05);
+  z-index: 10000000;
+}
+
+.nav-left {
+  float: left;
+}
+
+.nav-right {
+  float: right;
+}
+
+.navLogoContainer {
+  position: relative;
+  width: 66px;
+  padding: 17.5px 0 14.5px;
+}
+
+.navLogo {
+  height: 30px;
+  vertical-align: middle;
+}
+
+.main {
+  margin-top: 65px;
+  padding-top: 30px;
+}
+
+.sectionContainer {
+  width: 100%;
+  position: relative;
+  margin: 40px auto;
+}
+
+.sectionContent {
+  position: relative;
+  margin: 0px auto;
+  max-width: 1760px;
+  padding-right: 80px;
+  padding-left: 80px;
+}
+
+.title {
+  font-size: 24px;
+}
+
+
+/* General Flex */
+.flex-item-container {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+
+  -webkit-box-pack: flex-start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: flex-start;
+  justify-content: flex-start;
+
+  margin: auto -15px -25px;
+}
+
+.flex-item {
+  -webkit-flex: 0 1 auto;
+  -ms-flex: 0 1 auto;
+  flex: 0 1 auto;
+  margin: 0 15px 30px;
+}
+
+/* Card Styling */
+.card--h {
+  width: 300px;
+  height: 220px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0px 10px 20px rgba(0,0,0,0.15);
+}
+
+.card--v {
+  width: 175px;
+  height: 220px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0px 10px 20px rgba(0,0,0,0.15);
+}
+
+.card__header {
+  padding: 20px 20px 0;
+}
