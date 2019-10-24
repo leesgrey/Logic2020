@@ -2,11 +2,13 @@ body {
   font-family: Helvetica,Arial,sans-serif;
   font-size: 15px;
   font-weight: 300;
+  line-height: 1.5;
   color: #333;
   margin: 0;
 }
 
-h4 {
+/* text and fonts */
+p, h3, h4 {
   margin: 0;
 }
 
@@ -15,13 +17,13 @@ a {
   color: inherit;
 }
 
-ul {
-  margin: 0;
-  padding: 0;
+.title {
+  font-size: 24px;
 }
 
-li {
-  list-style: none;
+.sm-title {
+  color: #B2B8C6;
+  font-size: 12px;
 }
 
 .red-txt {
@@ -48,6 +50,72 @@ li {
   color: #AE7CFC;
 }
 
+/* list */
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+
+button, input, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  font-weight: inherit;
+}
+
+/* button */
+.btn{
+  display: inline-block;
+  cursor: pointer;
+  height: initial;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding: 8px 20px;
+  text-align: center;
+  font: 15px/normal Helvetica;
+  letter-spacing: .25px;
+  transition: 0.3s;
+  outline: none;
+}
+
+.btn:focus {
+  box-shadow: 0 0 0 4px #ffffff, 0 0 0 5px #717171, 0 0 0 6px rgba(255,255,255,0.5) !important;
+  outline: none;
+  -webkit-transition: box-shadow 0.15s ease;
+  -moz-transition: box-shadow 0.15s ease;
+  transition: box-shadow 0.15s ease;
+}
+
+.blue-btn, .blue-btn:hover {
+  background-color: #3973FB;
+  color: white;
+}
+
+.blue-btn:focus {
+  background-color: #3367E1;
+}
+
+/* input */
+.inputFieldRow {
+  margin: 30px 0;
+}
+
+.inputField {
+  background-color: #fff;
+  border: 1px solid #EAEDF3;
+  border-radius: 4px;
+  color: #151b26;
+  margin: 0;
+  padding: 6px 0 6px 10px;
+  width: 100%;
+  padding: 10px 12px;
+  line-height: 0;
+}
 
 /* navbar */
 .navbar {
@@ -95,8 +163,8 @@ li {
 
 /* Main Body */
 .main {
-  margin-top: 65px;
-  padding-top: 30px;
+  position: relative;
+  top: 65px;
 }
 
 .sectionContainer {
@@ -113,9 +181,7 @@ li {
   padding-left: 80px;
 }
 
-.title {
-  font-size: 24px;
-}
+
 
 
 /* General Flex */

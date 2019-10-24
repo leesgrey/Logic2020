@@ -1,0 +1,34 @@
+.main {
+  padding: 0 50px;
+}
+
+.sideCol {
+  float: left;
+  top: 65px;
+  bottom: 0;
+  left: 0;
+  width: 300px;
+  background-color: white;
+  z-index: 1;
+}
+
+.questionContainer {
+  margin-left: 300px;
+}
+
+.questionTitleContainer, .formalStructureContainer {
+  margin: 30px 0;
+}
+
+.questionTitle{
+  font-size: 18px;
+}
+
+.formalStructure {
+  display: inline-block;
+}
+
+.h-line {
+  height: 1px;
+  background: #333333;
+}
