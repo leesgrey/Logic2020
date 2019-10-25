@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>Logic2020</title>
+
+  <link href="../assets/portal.css" rel="stylesheet">
+  <link href="../assets/practice.css" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar">
+    <ul class="nav-left">
+      <li>
+        <a href="./dashboard.html">
+          <div class="navLogoContainer">
+            <img src="../assets/logo.svg" class="navLogo" alt="">
+          </div>
+        </a>
+      </li>
+    </ul>
+    <ul class="nav-right">
+      <li>
+        <a href="">
+          <div class="navProfileContainer">
+            <img src="../assets/profile.jpg" class="navProfile" alt="">
+          </div>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <main class="main">
+    <div class="sideCol">
+      <div class="sideColRow">
+        <h3 class="title">
+          <input type="text" name="" value="" placeholder="Assignment Name">
+        </h3>
+      </div>
+
+      <div class="sideColRow">
+        <p class="sm-title">
+          Due on
+        </p>
+        <p>
+          <input type="date" name="" value="" placeholder="Assignment Name">
+        </p>
+      </div>
+
+      <div class="sideColRow">
+        <p class="sm-title">
+          Selected Questions
+        </p>
+        <ul class="">
+          <a href="javascript:;">
+            <li class="">
+              <p class="red-txt">
+                Symb 1.001
+              </p>
+              <p class="questionPreviewText sm-txt">
+                The Bruins fail to win
+              </p>
+            </li>
+          </a>
+
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="questionContainer">
+      <div class="questionTitleContainer">
+        <p>
+          Choose your question
+        </p>
+      </div>
+      <div class="">
+        <ul class="">
+          <a href="javascript:;">
+            <li class="questionListItem">
+              <p class="red-txt">
+                Symb 1.001
+              </p>
+              <p class="questionPreviewText sm-txt">
+                The Bruins fail to win
+              </p>
+            </li>
+          </a>
+          <a href="javascript:;" class="questionLink">
+            <li class="questionListItem done">
+              <p class="red-txt">
+                Symb 1.001 EG
+              </p>
+              <p class="questionPreviewText sm-txt">
+                The Bruins fail to win and that Bruins fail to win
+              </p>
+            </li>
+          </a>
+          <a href="javascript:;">
+            <li class="questionListItem">
+              <p class="red-txt">
+                Symb 1.002
+              </p>
+              <p class="questionPreviewText sm-txt">
+                The Bruins fail to win or that Bruins fail to win
+              </p>
+            </li>
+          </a>
+          <a href="javascript:;">
+            <li class="questionListItem">
+              <p class="red-txt">
+                Symb 1.001
+              </p>
+              <p class="questionPreviewText sm-txt">
+                The Bruins fail to win
+              </p>
+            </li>
+          </a>
+          <a href="javascript:;" class="questionLink">
+            <li class="questionListItem">
+              <p class="red-txt">
+                Symb 1.001 EG
+              </p>
+              <p class="questionPreviewText sm-txt">
+                The Bruins fail to win and that Bruins fail to win
+              </p>
+            </li>
+          </a>
+          <a href="javascript:;">
+            <li class="questionListItem">
+              <p class="red-txt">
+                Symb 1.002
+              </p>
+              <p class="questionPreviewText sm-txt">
+                The Bruins fail to win or that Bruins fail to win
+              </p>
+            </li>
+          </a>
+          <a href="javascript:;">
+            <li class="questionListItem">
+              <p class="red-txt">
+                Symb 1.001
+              </p>
+              <p class="questionPreviewText sm-txt">
+                The Bruins fail to win
+              </p>
+            </li>
+          </a>
+          <a href="javascript:;" class="questionLink">
+            <li class="questionListItem">
+              <p class="red-txt">
+                Symb 1.001 EG
+              </p>
+              <p class="questionPreviewText sm-txt">
+                The Bruins fail to win and that Bruins fail to win
+              </p>
+            </li>
+          </a>
+          <a href="javascript:;">
+            <li class="questionListItem">
+              <p class="red-txt">
+                Symb 1.002
+              </p>
+              <p class="questionPreviewText sm-txt">
+                The Bruins fail to win or that Bruins fail to win
+              </p>
+            </li>
+          </a>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <script type="text/javascript">
+  window.onload = function() {
+    var anchors = document.getElementsByClassName('questionPreviewText');
+    for(var i = 0; i < anchors.length; i++) {
+      var anchor = anchors[i];
+      anchor.onclick = function() {
+        anchor.classList.toggle("done");
+      }
+    }
+  }
+  </script>
+</body>
+</html>
