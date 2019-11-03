@@ -138,6 +138,26 @@ button, input, select, textarea {
   max-width: 300px;
 }
 
+/* table */
+table {
+  border-collapse: collapse;
+}
+
+thead {
+  color: #B2B8C6;
+}
+
+tr {
+  border-bottom: 1px solid #EAEDF3;
+}
+
+th, td {
+  text-align: left;
+  padding: 20px 0;
+
+}
+
+
 /* navbar */
 .navbar {
   /* position: sticky;

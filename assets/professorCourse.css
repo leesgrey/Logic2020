@@ -1,0 +1,9 @@
+.statNumber {
+  font-size: 42px;
+  line-height: 1;
+  font-weight: 400;
+}
+
+.statFlex {
+  min-width: 100px;
+}

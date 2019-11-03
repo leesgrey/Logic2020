@@ -24,5 +24,4 @@ function checkEnter(e) {
   if (e.keyCode == 13) {
     loginButton.click();
   }
-
 }
