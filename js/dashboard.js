@@ -10,7 +10,8 @@ class Assignment {
     this.title = title;
     this.dueDateTime = dueDateTime;
     this.questions = questions;
-    this.completion = false;
+    this.completed = 0;
+    this.total = questions.length;
     this.assignmentId = numberOfAssignments;
     numberOfAssignments++;
   }
@@ -34,9 +35,12 @@ for (let i = 0; i < myAssignments.length; i++){
   const newTitle = document.createElement('h4');
   newTitle.innerText = myAssignments[i].title;
   newHeader.appendChild(newTitle);
-  const newDueDate = document.createElement('h4');
+  const newDueDate = document.createElement('p');
   newDueDate.innerText = "Due " + myAssignments[i].dueDateTime;
   newHeader.appendChild(newDueDate);
+  const newCompletion = document.createElement('p');
+  newCompletion.innerText = myAssignments[i].completed / myAssignments[i].total + "% completed"
+  newHeader.appendChild(newCompletion);
 
   assignmentBox.appendChild(newCardContainer);
 }
