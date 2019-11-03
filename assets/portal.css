@@ -60,6 +60,14 @@ a {
   color: #AE7CFC;
 }
 
+.pink-txt {
+  color: #FC7CED;
+}
+
+.blue-txt {
+  color: #004dff;
+}
+
 /* list */
 ul {
   margin: 0;
@@ -103,7 +111,7 @@ button, input, select, textarea {
 }
 
 .blue-btn, .blue-btn:hover {
-  background-color: #3973FB;
+  background-color: #004dff;
   color: white;
 }
 
@@ -256,4 +264,8 @@ button, input, select, textarea {
 
 .card__header {
   padding: 20px 20px 0;
+}
+
+.card__body {
+  padding: 0 20px;
 }
