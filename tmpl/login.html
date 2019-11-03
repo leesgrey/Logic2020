@@ -16,7 +16,7 @@
       <div id="anotherLogin">
         <a href="./professorLogin.html">Login in as Professor</a>
       </div>
-      <div class="">
+      <div class="" id="inputForm">
         <h3 class="title">
           Hello Student,
           <br>
@@ -25,12 +25,12 @@
         <p>
 
         </p>
-        <div class="inputFieldRow">
+        <div class="inputFieldRow" id="inputFields">
           <p>
             ID
           </p>
           <p>
-            <input class="inputField" type="text" name="" value="" placeholder="">
+            <input class="inputField" type="text" id="userName" name="" value="" placeholder="">
           </p>
         </div>
         <div class="inputFieldRow">
@@ -38,11 +38,12 @@
             Password
           </p>
           <p>
-            <input class="inputField" type="text" name="" value="" placeholder="">
+            <input class="inputField" type="password" id="passWord" name="" value="" placeholder="">
           </p>
         </div>
-        <a class="btn blue-btn" href="../tmpl/dashboard.html">Login</a>
+        <button class="btn blue-btn" id='loginButton'>Login</button>
       </div>
     </div>
+    <script type="text/javascript" src="../js/login.js"></script>
   </body>
 </html>
