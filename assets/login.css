@@ -16,3 +16,9 @@
   padding: 150px 100px;
   width: 45%;
 }
+
+#anotherLogin {
+  position: absolute;
+  top: 15px;
+  right: 25px;
+}
