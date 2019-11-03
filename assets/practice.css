@@ -90,3 +90,6 @@
   height: 1px;
   background: #333333;
 }
+.feedback {
+  display: none;
+}

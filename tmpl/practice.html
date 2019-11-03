@@ -56,7 +56,7 @@
           Questions
         </p>
         <ul class="">
-          <a href="javascript:;">
+          <a href="javascript:;" id="questions">
             <li class="questionListItem">
               <p class="red-txt">
                 Symb 1.001
@@ -95,38 +95,32 @@
     <div class="questionContainer">
       <div class="questionTitleContainer">
         <p id="questionCategory" class="cyan-txt">
-          RECOG 1.003
         </p>
         <p class="questionTitle" id="questionTitle">
-          W → X.  ~X.  ∴~W
         </p>
       </div>
       <div class="formalStructureContainer">
         <div class="formalStructure">
           <p class="questionTitle">
-            W → X.
           </p>
           <p class="questionTitle">
-            ~X.
           </p>
           <div class="h-line">
-
           </div>
           <p class="questionTitle">
-            ∴~W
           </p>
         </div>
       </div>
       <div class="workspace">
         <div class="inputFieldRow">
-          <p>
-            Enter the rules that apply:
+          <p id="questionPrompt">
           </p>
           <p>
-            <input class="inputField" type="text" name="" value="" placeholder="">
+            <input id="answer" class="inputField" type="text" name="" value="" placeholder="">
           </p>
+          <p id="feedback"></p>
         </div>
-        <button class="btn blue-btn" type="button" name="button">Submit</button>
+        <button id="submitButton" class="btn blue-btn" type="button" name="button">Submit</button>
       </div>
     </div>
   </main>
