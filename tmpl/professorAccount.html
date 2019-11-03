@@ -5,6 +5,7 @@
   <title>Logic2020</title>
 
   <link href="../assets/portal.css" rel="stylesheet">
+  <link href="../assets/account.css" rel="stylesheet">
 </head>
 <body>
   <nav class="navbar">
@@ -30,12 +31,65 @@
   <main class="main">
     <div class="sectionContainer">
       <div class="sectionContent">
-        <h2 class="title blue-txt" style="font-size: 50px;">
-          Hello, Professor Koo :)
-        </h2>
+        <div class="profileImageContainer">
+          <a href="#">
+            <img src="../assets/alex.jpg" class="profileImage" alt="">
+          </a>
+        </div>
+        <div id="accountTitleContainer">
+          <p>
+            Welcome back
+          </p>
+          <h3 class="title js-username" id="mainUsername">
+            Professor Koo
+          </h3>
+          <a href="#">
+            Edit Profile
+          </a>
+        </div>
       </div>
     </div>
 
+    <div class="sectionContainer">
+      <div class="sectionContent">
+        <div id="accountInfoContainer">
+          <div class="">
+            <p class="sm-title">
+              Institution
+            </p>
+            <p>
+              University of Toronto
+            </p>
+          </div>
+
+          <div class="">
+            <p class="sm-title">
+              Term
+            </p>
+            <p>
+              Fall 2019
+            </p>
+          </div>
+
+          <div class="">
+            <p class="sm-title">
+              Course
+            </p>
+            <p>
+              PHL245H1F
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sectionContainer">
+      <div class="sectionContent">
+        <div id="logoutContainer">
+          <a href="./login.html" class="pink-txt">Logout</a>
+        </div>
+      </div>
+    </div>
   </main>
 </body>
 </html>
