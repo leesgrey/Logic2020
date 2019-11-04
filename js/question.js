@@ -11,7 +11,7 @@ class Question {
     this.answer = answer;
     this.category = category;
     this.answerPrompt = answerPrompt;
-    this.completed = false;
+    this.completed = completed;
   }
 }
 const questions = [];
@@ -49,6 +49,7 @@ const assignmentTitle = document.querySelector('#assignmentTitle');
 const assignmentDue = document.querySelector('#assignmentDue');
 const assignmentCompletion = document.querySelector('#assignmentCompletion');
 const assignmentSidebar = document.querySelector('.sideCol');
+const questionList = document.querySelector('#questions');
 const answerInput = document.querySelector('#answer');
 const submitButton = document.querySelector('#submitButton');
 
@@ -80,12 +81,13 @@ function updateAssignment(){
   assignmentTitle.innerText = myAssignments[0].title;
   assignmentDue.innerText = myAssignments[0].dueDateTime;
   assignmentCompletion.innerText = myAssignments[0].completed / myAssignments[0].total + '%';
+  questionList.innerHTML = "";
   // for each question, add to sidebar - requires server calls
   for (let i = 0; i < myAssignments[0].questions.length; i++){
     newQuestion = document.createElement('li');
     newQuestion.classList.add('questionListItem');
     newQuestionType = document.createElement('p');
-    if (myAssignments[0].questions[i].completed){
+    if (myAssignments[0].questions[i] == currentQuestion){
       newQuestionType.classList.add('cyan-txt');
     }
     else {
@@ -98,19 +100,18 @@ function updateAssignment(){
     newPreview.classList.add('sm-txt');
     newPreview.innerText = questions[myAssignments[0].questions[i]].title;
     newQuestion.appendChild(newPreview);
-
-    assignmentSidebar.append(newQuestion);
+    if (questions[myAssignments[0].questions[i]].completed){
+      newQuestion.classList.add('done');
+    }
+    questionList.append(newQuestion);
   }
-}
-
-function updateQuestions(){
-  updateAssignment()
 }
 
 function checkAnswer(){
   if (answerInput.value.toLowerCase() == questionAnswer){
     feedbackText.innerText = "Correct!"
-    updateQuestions();
+    questions[currentQuestion].completed = true;
+    updateAssignment();
   }
   else {
     feedbackText.innerText = "Incorrect, please try again.";
