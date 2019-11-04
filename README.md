@@ -5,7 +5,7 @@ This is a web application which allows students to practice philosophy logic que
 
 ## Getting Started
 
-Open ./tmpl/login.html with your chrome browser
+Open ./tmpl/index.html with your chrome browser
 
 ## Testing
 
