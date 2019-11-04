@@ -1,9 +1,9 @@
 const myAssignments = []
+const questions = [];
 
-// get current quetion, requires server call
-const currentQuestion = 0;
+// ID of currently displayed question 
+let currentQuestion = 0;
 
-// below question and assignment info replaces question server calls
 class Question {
   constructor(title, HTML, answer, category, answerPrompt, completed){
     this.title = title;
@@ -14,23 +14,6 @@ class Question {
     this.completed = completed;
   }
 }
-const questions = [];
-
-// get number of assignments, requires server call
-let numberOfAssignments = 0;
-
-// get question text and answer, requires server call
-const questionTitle = 'W → X.  ~X.  ∴~W';
-const questionHTML = "<p class='questionTitle'> W → X. </p>"
-                   + "<p class='questionTitle'> ~X. </p>" 
-                   + "<div class='h-line'> </div>"
-                   + "<p class='questionTitle'> ∴~W </p>" 
-const questionAnswer = "mt";
-const questionCategory = "RECOG 1.003";
-const questionPrompt = "Enter the rules that apply:";
-
-questions.push(new Question(questionTitle, questionHTML, questionAnswer, questionCategory, questionPrompt, false));
-questions.push(new Question('The Bruins fail to win', questionHTML, questionAnswer, "SYMB 1.001", questionPrompt, false));
 
 class Assignment {
   constructor(title, dueDateTime, questions){
@@ -43,6 +26,23 @@ class Assignment {
     numberOfAssignments++;
   }
 }
+
+// get number of assignments, should get from server
+let numberOfAssignments = 0;
+
+// get question text and answer, should get from server 
+const HTML1 = "<p class='questionTitle'> W → X. </p>"
+                   + "<p class='questionTitle'> ~X. </p>" 
+                   + "<div class='h-line'> </div>"
+                   + "<p class='questionTitle'> ∴~W </p>" 
+const HTML2 = "<p class='questionTitle'> P → P. </p>"
+            + "<p class='questionTitle'> P </p>"
+            + "<div class='h-line'></div>"
+            + "<p class='questionTitle'> P </p>"
+
+questions.push(new Question('W → X.  ~X.  ∴~W', HTML1, "mt", "RECOG 1.003", "Enter the rules that apply:", false));
+questions.push(new Question('P → P.  P.  ∴P', HTML2, "mp", "RECOG 1.004", "Enter the rules that apply:", false));
+
 
 // get DOM elements
 const assignmentTitle = document.querySelector('#assignmentTitle');
@@ -72,10 +72,14 @@ if (myAssignments.length == 0){
 }
 
 // update question details
-questionDisplay.innerHTML = questions[currentQuestion].HTML;
-questionTitleDisplay.innerText = questions[currentQuestion].title;
-questionCategoryDisplay.innerText = questions[currentQuestion].category;
-questionPromptDisplay.innerText = questions[currentQuestion].answerPrompt;
+function updateQuestion(index){
+  currentQuestion = index;
+  questionDisplay.innerHTML = questions[currentQuestion].HTML;
+  questionTitleDisplay.innerText = questions[currentQuestion].title;
+  questionCategoryDisplay.innerText = questions[currentQuestion].category;
+  questionPromptDisplay.innerText = questions[currentQuestion].answerPrompt;
+  updateAssignment();
+}
 
 function updateAssignment(){
   assignmentTitle.innerText = myAssignments[0].title;
@@ -93,6 +97,7 @@ function updateAssignment(){
     else {
       newQuestionType.classList.add('red-txt');
     }
+    newQuestionType.classList.add('red-txt');
     newQuestionType.innerText = questions[myAssignments[0].questions[i]].category
     newQuestion.appendChild(newQuestionType);
     newPreview = document.createElement('p');
@@ -103,15 +108,20 @@ function updateAssignment(){
     if (questions[myAssignments[0].questions[i]].completed){
       newQuestion.classList.add('done');
     }
+    newQuestion.addEventListener('click', function(){
+      updateQuestion(i)
+    });
     questionList.append(newQuestion);
   }
 }
 
 function checkAnswer(){
-  if (answerInput.value.toLowerCase() == questionAnswer){
+  if (answerInput.value.toLowerCase() == questions[currentQuestion].answer){
     feedbackText.innerText = "Correct!"
-    questions[currentQuestion].completed = true;
-    myAssignments[0].completed++;
+    if (questions[currentQuestion].completed != true){
+      questions[currentQuestion].completed = true;
+      myAssignments[0].completed++;
+    }
     updateAssignment();
   }
   else {
@@ -120,4 +130,5 @@ function checkAnswer(){
   feedbackText.style.display = "block";
 }
 
+updateQuestion(0);
 updateAssignment();
