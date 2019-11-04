@@ -64,7 +64,7 @@ const feedbackText = document.querySelector('#feedback');
 submitButton.addEventListener('click', checkAnswer);
 
 // get user assignments, requires server call
-myAssignments.push(new Assignment('A1', 'October 16, 2019 23:59', [0, 1])); 
+myAssignments.push(new Assignment('A1', 'October 16, 2019 23:59', [0, 1]));
 
 // if no assignments, hide side
 if (myAssignments.length == 0){
@@ -116,19 +116,38 @@ function updateAssignment(){
 }
 
 function checkAnswer(){
+<<<<<<< HEAD
   if (answerInput.value.toLowerCase() == questions[currentQuestion].answer){
     feedbackText.innerText = "Correct!"
     if (questions[currentQuestion].completed != true){
       questions[currentQuestion].completed = true;
       myAssignments[0].completed++;
     }
+=======
+  if (answerInput.value.toLowerCase() == questionAnswer){
+    feedbackText.className = "";
+    feedbackText.classList.add("mint-txt");
+    feedbackText.innerText = "Correct!";
+    questions[currentQuestion].completed = true;
+    myAssignments[0].completed++;
+>>>>>>> f6e382a3328f6cd1d58b978d9b59cd27fd48f8e3
     updateAssignment();
   }
   else {
+    feedbackText.className = "";
     feedbackText.innerText = "Incorrect, please try again.";
+    feedbackText.classList.add("pink-txt");
   }
   feedbackText.style.display = "block";
 }
 
 updateQuestion(0);
 updateAssignment();
+
+
+answerInput.addEventListener("keyup", event => {
+  if (event.isComposing || event.keyCode === 229) {
+    return;
+  }
+  feedbackText.style.display = "none";
+});
