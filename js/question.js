@@ -78,6 +78,8 @@ function updateQuestion(index){
   questionTitleDisplay.innerText = questions[currentQuestion].title;
   questionCategoryDisplay.innerText = questions[currentQuestion].category;
   questionPromptDisplay.innerText = questions[currentQuestion].answerPrompt;
+  answerInput.value = "";
+  feedbackText.style.display = "none";
   updateAssignment();
 }
 
@@ -116,22 +118,15 @@ function updateAssignment(){
 }
 
 function checkAnswer(){
-<<<<<<< HEAD
   if (answerInput.value.toLowerCase() == questions[currentQuestion].answer){
-    feedbackText.innerText = "Correct!"
-    if (questions[currentQuestion].completed != true){
-      questions[currentQuestion].completed = true;
-      myAssignments[0].completed++;
-    }
-=======
-  if (answerInput.value.toLowerCase() == questionAnswer){
     feedbackText.className = "";
     feedbackText.classList.add("mint-txt");
     feedbackText.innerText = "Correct!";
-    questions[currentQuestion].completed = true;
-    myAssignments[0].completed++;
->>>>>>> f6e382a3328f6cd1d58b978d9b59cd27fd48f8e3
-    updateAssignment();
+    if (!questions[currentQuestion].completed){
+      questions[currentQuestion].completed = true;
+      myAssignments[0].completed++;
+      updateAssignment();
+    }
   }
   else {
     feedbackText.className = "";
