@@ -33,10 +33,14 @@ Answer: MT
 
 
 ### Professor Course Page
-Click "Recognizing Rules" under Question Section at the Dashboard
+- Display Course information: time, class size and class average
+- Show a table of all student
+- Click "Recognizing Rules" under Question Section at the Dashboard
 
 ### Professor Assignment Page
-You can add or remove question for an assignment
+- You can check and uncheck question on the question list
+- You can remove a selected question by clicking the cross at the selected question list
   
 ### Account/Profile Page
-You can logout here
+- See user profile information
+- You can logout here
