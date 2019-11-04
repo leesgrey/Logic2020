@@ -78,6 +78,24 @@
   margin: 30px 0;
 }
 
+.selectedQuestion {
+  position: relative;
+}
+
+.removeSelectedQuestionBtn {
+  right: -12px;
+  top: 20px;
+  width: 15px;
+  height: 15px;
+}
+
+.selectedQuestionListItem {
+  position: relative;
+  padding: 10px 0;
+  max-width: 300px;
+  text-overflow: ellipsis;
+}
+
 .questionTitle{
   font-size: 18px;
 }
