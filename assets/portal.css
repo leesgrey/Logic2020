@@ -23,6 +23,10 @@ a {
   color: inherit;
 }
 
+a li {
+  cursor: pointer;
+}
+
 .title {
   font-size: 24px;
 }
