@@ -80,7 +80,7 @@ questionPromptDisplay.innerText = questions[currentQuestion].answerPrompt;
 function updateAssignment(){
   assignmentTitle.innerText = myAssignments[0].title;
   assignmentDue.innerText = myAssignments[0].dueDateTime;
-  assignmentCompletion.innerText = myAssignments[0].completed / myAssignments[0].total + '%';
+  assignmentCompletion.innerText = (myAssignments[0].completed / myAssignments[0].total).toFixed(2) * 100 + '%';
   questionList.innerHTML = "";
   // for each question, add to sidebar - requires server calls
   for (let i = 0; i < myAssignments[0].questions.length; i++){
@@ -111,6 +111,7 @@ function checkAnswer(){
   if (answerInput.value.toLowerCase() == questionAnswer){
     feedbackText.innerText = "Correct!"
     questions[currentQuestion].completed = true;
+    myAssignments[0].completed++;
     updateAssignment();
   }
   else {
