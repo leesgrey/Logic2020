@@ -93,13 +93,7 @@ function updateAssignment(){
     newQuestion = document.createElement('li');
     newQuestion.classList.add('questionListItem');
     newQuestionType = document.createElement('p');
-    if (myAssignments[0].questions[i] == currentQuestion){
-      newQuestionType.classList.add('cyan-txt');
-    }
-    else {
-      newQuestionType.classList.add('red-txt');
-    }
-    newQuestionType.classList.add('red-txt');
+    newQuestionType.classList.add('cyan-txt');
     newQuestionType.innerText = questions[myAssignments[0].questions[i]].category
     newQuestion.appendChild(newQuestionType);
     newPreview = document.createElement('p');
