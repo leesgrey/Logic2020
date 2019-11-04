@@ -22,9 +22,9 @@ let numberOfAssignments = 0;
 // get question text and answer, requires server call
 const questionTitle = 'W → X.  ~X.  ∴~W';
 const questionHTML = "<p class='questionTitle'> W → X. </p>"
-                   + "<p class='questionTitle'> ~X. </p>" 
+                   + "<p class='questionTitle'> ~X. </p>"
                    + "<div class='h-line'> </div>"
-                   + "<p class='questionTitle'> ∴~W </p>" 
+                   + "<p class='questionTitle'> ∴~W </p>"
 const questionAnswer = "mt";
 const questionCategory = "RECOG 1.003";
 const questionPrompt = "Enter the rules that apply:";
@@ -64,7 +64,7 @@ const feedbackText = document.querySelector('#feedback');
 submitButton.addEventListener('click', checkAnswer);
 
 // get user assignments, requires server call
-myAssignments.push(new Assignment('A1', 'October 16, 2019 23:59', [0, 1])); 
+myAssignments.push(new Assignment('A1', 'October 16, 2019 23:59', [0, 1]));
 
 // if no assignments, hide side
 if (myAssignments.length == 0){
@@ -109,15 +109,27 @@ function updateAssignment(){
 
 function checkAnswer(){
   if (answerInput.value.toLowerCase() == questionAnswer){
-    feedbackText.innerText = "Correct!"
+    feedbackText.className = "";
+    feedbackText.classList.add("mint-txt");
+    feedbackText.innerText = "Correct!";
     questions[currentQuestion].completed = true;
     myAssignments[0].completed++;
     updateAssignment();
   }
   else {
+    feedbackText.className = "";
     feedbackText.innerText = "Incorrect, please try again.";
+    feedbackText.classList.add("pink-txt");
   }
   feedbackText.style.display = "block";
 }
 
 updateAssignment();
+
+
+answerInput.addEventListener("keyup", event => {
+  if (event.isComposing || event.keyCode === 229) {
+    return;
+  }
+  feedbackText.style.display = "none";
+});
