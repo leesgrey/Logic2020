@@ -17,6 +17,15 @@ function checkCredentials(e) {
   else if (idInput.value == 'admin' && pwInput.value == 'admin'){
     document.location.href = '../tmpl/professorDashboard.html';
   }
+  else {
+    let field = document.querySelector('#errorMessage');
+    let message = document.createElement('p');
+    if (field.innerHTML.trim().length === 0) {
+      message.innerHTML = "*username or password entered is incorrect";
+      message.style.color = "red"
+    }
+    field.appendChild(message)
+  }
 }
 
 // if enter pressed on pwInput, click button
