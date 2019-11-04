@@ -25,10 +25,10 @@ password: admin
 ### Question Module
 Click "Recognizing Rules" under Question Section at the Dashboard  
   
-Question RECOG 1.001  
+Question RECOG 1.003  
 Answer: MP  
   
-Question RECOG 1.003  
+Question RECOG 1.004  
 Answer: MT  
 
 
