@@ -49,19 +49,17 @@
         <p class="sm-title">
           Selected Questions
         </p>
-        <ul class="">
-          <a href="javascript:;">
-            <li class="">
-              <p class="red-txt">
-                Symb 1.001
-              </p>
-              <p class="questionPreviewText sm-txt">
-                The Bruins fail to win
-              </p>
-            </li>
-          </a>
-
-        </ul>
+        <ul id="selectedQuestionList"><div id="selected_symb1001" class="selectedQuestion">
+          <li class="selectedQuestionListItem">
+            <p class="red-txt">
+              Symb 1.001
+            </p>
+            <p class="questionPreviewText sm-txt">
+              The Bruins fail to win
+            </p>
+          </li>
+          <a class="closeButton removeSelectedQuestionBtn" href="javascript: removeQuestion('symb1001');"></a>
+        </div></ul>
       </div>
 
     </div>
@@ -74,39 +72,9 @@
       </div>
       <div class="">
         <ul class="">
-          <a href="javascript:;">
-            <li class="questionListItem">
-              <p class="red-txt">
-                Symb 1.001
-              </p>
-              <p class="questionPreviewText sm-txt">
-                The Bruins fail to win
-              </p>
-            </li>
-          </a>
-          <a href="javascript:;" class="questionLink">
+          <a id="symb1001" class="questionLink">
             <li class="questionListItem done">
               <p class="red-txt">
-                Symb 1.001 EG
-              </p>
-              <p class="questionPreviewText sm-txt">
-                The Bruins fail to win and that Bruins fail to win
-              </p>
-            </li>
-          </a>
-          <a href="javascript:;">
-            <li class="questionListItem">
-              <p class="red-txt">
-                Symb 1.002
-              </p>
-              <p class="questionPreviewText sm-txt">
-                The Bruins fail to win or that Bruins fail to win
-              </p>
-            </li>
-          </a>
-          <a href="javascript:;">
-            <li class="questionListItem">
-              <p class="red-txt">
                 Symb 1.001
               </p>
               <p class="questionPreviewText sm-txt">
@@ -114,50 +82,20 @@
               </p>
             </li>
           </a>
-          <a href="javascript:;" class="questionLink">
+          <a id="symb1002" class="questionLink">
             <li class="questionListItem">
               <p class="red-txt">
-                Symb 1.001 EG
+                Symb 1.002
               </p>
               <p class="questionPreviewText sm-txt">
                 The Bruins fail to win and that Bruins fail to win
               </p>
             </li>
           </a>
-          <a href="javascript:;">
+          <a id="symb1003" class="questionLink">
             <li class="questionListItem">
               <p class="red-txt">
-                Symb 1.002
-              </p>
-              <p class="questionPreviewText sm-txt">
-                The Bruins fail to win or that Bruins fail to win
-              </p>
-            </li>
-          </a>
-          <a href="javascript:;">
-            <li class="questionListItem">
-              <p class="red-txt">
-                Symb 1.001
-              </p>
-              <p class="questionPreviewText sm-txt">
-                The Bruins fail to win
-              </p>
-            </li>
-          </a>
-          <a href="javascript:;" class="questionLink">
-            <li class="questionListItem">
-              <p class="red-txt">
-                Symb 1.001 EG
-              </p>
-              <p class="questionPreviewText sm-txt">
-                The Bruins fail to win and that Bruins fail to win
-              </p>
-            </li>
-          </a>
-          <a href="javascript:;">
-            <li class="questionListItem">
-              <p class="red-txt">
-                Symb 1.002
+                Symb 1.003
               </p>
               <p class="questionPreviewText sm-txt">
                 The Bruins fail to win or that Bruins fail to win
@@ -169,16 +107,6 @@
     </div>
   </main>
 
-  <script type="text/javascript">
-  window.onload = function() {
-    var anchors = document.getElementsByClassName('questionPreviewText');
-    for(var i = 0; i < anchors.length; i++) {
-      var anchor = anchors[i];
-      anchor.onclick = function() {
-        anchor.classList.toggle("done");
-      }
-    }
-  }
-  </script>
+  <script type="text/javascript" src="../js/practice.js"></script>
 </body>
 </html>
