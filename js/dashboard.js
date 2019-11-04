@@ -25,6 +25,7 @@ for (let i = 0; i < myAssignments.length; i++){
   const newCardContainer = document.createElement('div');
   newCardContainer.classList.add('flex-item');
   const newLink = document.createElement('a');
+  newLink.href = "./practice.html"
   newCardContainer.appendChild(newLink);
   const newCard = document.createElement('div');
   newCard.classList.add('card--h');
