@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>Logic2020</title>
+
+  <link href="../assets/portal.css" rel="stylesheet">
+  <link href="../assets/practice.css" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar">
+    <ul class="nav-left">
+      <li>
+        <a href="./dashboard.html">
+          <div class="navLogoContainer">
+            <img src="../assets/logo.svg" class="navLogo" alt="">
+          </div>
+        </a>
+      </li>
+    </ul>
+    <ul class="nav-right">
+      <li>
+        <a href="./account.html">
+          <div class="navProfileContainer">
+            <img src="../assets/profile.jpg" class="navProfile" alt="">
+          </div>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <main class="main">
+    <div class="sideCol">
+      <div class="sideColRow" >
+        <h3 class="title" id="assignmentTitle">
+        </h3>
+      </div>
+
+      <div class="sideColRow">
+        <p class="sm-title">
+          Due on
+        </p>
+        <p id="assignmentDue">
+        </p>
+      </div>
+
+      <div class="sideColRow">
+        <p class="sm-title">
+          Completion
+        </p>
+        <p id="assignmentCompletion">
+        </p>
+      </div>
+
+      <div class="sideColRow">
+        <p class="sm-title">
+          Questions
+        </p>
+        <ul class="">
+          <a href="javascript:;" id="questions">
+          </a>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="questionContainer">
+      <div class="questionTitleContainer">
+        <p id="questionCategory" class="cyan-txt">
+        </p>
+        <p class="questionTitle" id="questionTitle">
+        </p>
+      </div>
+      <div class="formalStructureContainer">
+        <div class="formalStructure">
+          <p class="questionTitle">
+          </p>
+          <p class="questionTitle">
+          </p>
+          <div class="h-line">
+          </div>
+          <p class="questionTitle">
+          </p>
+        </div>
+      </div>
+      <div class="workspace">
+        <div class="inputFieldRow">
+          <p id="questionPrompt">
+          </p>
+          <p>
+            <input id="answer" class="inputField" type="text" name="" value="" placeholder="">
+          </p>
+          <p id="feedback"></p>
+        </div>
+        <button id="submitButton" class="btn blue-btn" type="button" name="button">Submit</button>
+      </div>
+    </div>
+  </main>
+  <script type="text/javascript" src="../js/question.js"></script>
+</body>
+</html>

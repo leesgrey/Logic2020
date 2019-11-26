@@ -1,0 +1,19 @@
+{
+  "name": "team20",
+  "version": "1.0.0",
+  "description": "Logic 2020 is an web implementation of Logic 2010 (https://logiclx.humnet.ucla.edu). \r This is a web application which allows students to practice philosophy logic questions and get validation for their coursework.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/csc309-fall-2019/team20.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/csc309-fall-2019/team20/issues"
+  },
+  "homepage": "https://github.com/csc309-fall-2019/team20#readme"
+}

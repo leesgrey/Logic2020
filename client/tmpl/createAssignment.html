@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>Logic2020</title>
+
+  <link href="../assets/portal.css" rel="stylesheet">
+  <link href="../assets/practice.css" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar">
+    <ul class="nav-left">
+      <li>
+        <a href="./professorDashboard.html">
+          <div class="navLogoContainer">
+            <img src="../assets/logo.svg" class="navLogo" alt="">
+          </div>
+        </a>
+      </li>
+    </ul>
+    <ul class="nav-right">
+      <li>
+        <a href="./professorAccount.html">
+          <div class="navProfileContainer">
+            <img src="../assets/alex.jpg" class="navProfile" alt="">
+          </div>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <main class="main">
+    <div class="sideCol">
+      <div class="sideColRow">
+        <h3 class="title">
+          <input class="inputField" type="text" name="" value="" placeholder="Assignment Name">
+        </h3>
+      </div>
+
+      <div class="sideColRow">
+        <p class="sm-title">
+          Due on
+        </p>
+        <p>
+          <input id="assignmentDate" type="date" name="" value="">
+        </p>
+      </div>
+
+      <div class="sideColRow">
+        <p class="sm-title">
+          Selected Questions
+        </p>
+        <ul id="selectedQuestionList"><div id="selected_symb1001" class="selectedQuestion">
+          <li class="selectedQuestionListItem">
+            <p class="red-txt">
+              Symb 1.001
+            </p>
+            <p class="questionPreviewText sm-txt">
+              The Bruins fail to win
+            </p>
+          </li>
+          <a class="closeButton removeSelectedQuestionBtn" href="javascript: removeQuestion('symb1001');"></a>
+        </div></ul>
+      </div>
+
+    </div>
+
+    <div class="questionContainer">
+      <div class="questionTitleContainer">
+        <p>
+          Choose your question
+        </p>
+      </div>
+      <div class="">
+        <ul class="">
+          <a id="symb1001" class="questionLink">
+            <li class="questionListItem done">
+              <p class="red-txt">
+                Symb 1.001
+              </p>
+              <p class="questionPreviewText sm-txt">
+                The Bruins fail to win
+              </p>
+            </li>
+          </a>
+          <a id="symb1002" class="questionLink">
+            <li class="questionListItem">
+              <p class="red-txt">
+                Symb 1.002
+              </p>
+              <p class="questionPreviewText sm-txt">
+                The Bruins fail to win and that Bruins fail to win
+              </p>
+            </li>
+          </a>
+          <a id="symb1003" class="questionLink">
+            <li class="questionListItem">
+              <p class="red-txt">
+                Symb 1.003
+              </p>
+              <p class="questionPreviewText sm-txt">
+                The Bruins fail to win or that Bruins fail to win
+              </p>
+            </li>
+          </a>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <script type="text/javascript" src="../js/practice.js"></script>
+</body>
+</html>
