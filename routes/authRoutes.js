@@ -2,20 +2,6 @@ const passport = require('passport');
 
 module.exports = app => {
 
-    app.get('/', (req, res) => {
-        if (req.session.token) {
-            res.cookie('token', req.session.token);
-            res.json({
-                status: 'session cookie set'
-            });
-        } else {
-            res.cookie('token', '')
-            res.json({
-                status: 'session cookie not set'
-            });
-        }
-    });
-
     app.get(
         '/auth/google',
         passport.authenticate('google', {
@@ -25,7 +11,7 @@ module.exports = app => {
 
     app.get(
         '/auth/google/callback',
-        passport.authenticate('google', {failureRedirect:'/'}),
+        passport.authenticate('google', {failureRedirect:'/login'}),
         (req, res) => {
             req.session.token = req.user.token;
             res.redirect('/');
