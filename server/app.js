@@ -24,6 +24,8 @@
 const Express = require("express");
 const BodyParser = require("body-parser");
 const MongoClient = require("mongodb").MongoClient;
+const ObjectId = require("mongodb").ObjectID;
+
 
 const CONNECTION_URL = 'mongodb+srv://csc309Phil:csc309csc309@cluster0-1bsyp.mongodb.net/test?retryWrites=true&w=majority';
 const DATABASE_NAME = "logic2020";
@@ -41,16 +43,29 @@ app.listen(8000, () => {
             throw error;
         }
         database = client.db(DATABASE_NAME);
-        collection = database.collection("questions");
+        question_table = database.collection("questions");
+        student_table = database.collection("students");
         console.log("Connected to `" + DATABASE_NAME + "`!");
     });
 });
 
 app.get("/questions", (request, response) => {
-    collection.find({}).toArray((error, result) => {
+    question_table.find({}).toArray((error, result) => {
         if(error) {
             return response.status(500).send(error);
         }
         response.send(result);
     });
 });
+
+//Sends answer when 
+app.get('/questions/:id', (request, response) => {
+    question_table.findOne({ "_id": new ObjectId(request.params.id) }, (error, result) => {
+        if(error) {
+            return response.status(500).send(error);
+        }
+        response.send({"answer": result.answer});
+    });
+
+
+})
