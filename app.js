@@ -1,38 +1,43 @@
 const Express = require("express");
-const BodyParser = require("body-parser");
-const MongoClient = require("mongodb").MongoClient;
-const ObjectId = require("mongodb").ObjectID;
+// const BodyParser = require("body-parser");
+// const MongoClient = require("mongodb").MongoClient;
+// const ObjectId = require("mongodb").ObjectID;
 
 
-const CONNECTION_URL = 'mongodb+srv://csc309Phil:csc309csc309@cluster0-1bsyp.mongodb.net/test?retryWrites=true&w=majority';
-const DATABASE_NAME = "logic2020";
+// const CONNECTION_URL = 'mongodb+srv://csc309Phil:csc309csc309@cluster0-1bsyp.mongodb.net/test?retryWrites=true&w=majority';
+// const DATABASE_NAME = "logic2020";
 
 var app = Express();
 
-app.use(BodyParser.json());
-app.use(BodyParser.urlencoded({ extended: true }));
+// app.use(BodyParser.json());
+// app.use(BodyParser.urlencoded({ extended: true }));
 
-var database;
+// var database;
 
-app.listen('/', (req, res) => {
-    MongoClient.connect(CONNECTION_URL, { useNewUrlParser: true }, (error, client) => {
-        if(error) {
-            throw error;
-        }
-        database = client.db(DATABASE_NAME);
-        question_table = database.collection("questions");
-        student_table = database.collection("students");
-        console.log("Connected to `" + DATABASE_NAME + "`!");
-    });
-});
+// app.listen('/', (req, res) => {
+//     MongoClient.connect(CONNECTION_URL, { useNewUrlParser: true }, (error, client) => {
+//         if(error) {
+//             throw error;
+//         }
+//         database = client.db(DATABASE_NAME);
+//         question_table = database.collection("questions");
+//         student_table = database.collection("students");
+//         console.log("Connected to `" + DATABASE_NAME + "`!");
+//     });
+// });
 
-app.get("/questions", (request, response) => {
-    question_table.find({}).toArray((error, result) => {
-        if(error) {
-            return response.status(500).send(error);
-        }
-        response.send(result);
-    });
+// app.get("/questions", (request, response) => {
+//     question_table.find({}).toArray((error, result) => {
+//         if(error) {
+//             return response.status(500).send(error);
+//         }
+//         response.send(result);
+//     });
+// });
+
+
+app.get('/', (req, res) => {
+    res.send({'hi':'hello'})
 });
 
 
