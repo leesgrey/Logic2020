@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { Schema } = mongoose;
 
 const QuestionSchema = new mongoose.Schema({
     qid: String,
@@ -7,6 +8,6 @@ const QuestionSchema = new mongoose.Schema({
 });
 
 
-const question = mongoose.model('Question', QuestionSchema);
+const question = mongoose.model('questions', QuestionSchema);
 
 module.exports = { question };

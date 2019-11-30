@@ -1,37 +1,25 @@
-const { Questions } = require('../models/Questions')
+
+// new Student({username: "student", password: "password", first_name: "samin", last_name: "khan", grades: {"A1: 0}})
 
 module.exports = app => {
-
-    app.get('/questions', (req, res) => {
-        // Add code here
-    
-        Questions.find().then((questions) => {
-            res.send({ questions }) 
-        }, (error) => {
-            res.status(500).send(error) 
-        })
-    
-    
-    })
-
-    app.get('/questions/:id', (req, res) => {
-        // Add code here
-
-        const id = req.params.id
-        if (!ObjectID.isValid(id)) {
-            res.status(404).send()  
-        }
-
-        Questions.findById(id).then((question) => {
-            if (!question) {
-                res.status(404).send()  
-            } else {  
-                res.send(question)
+    //sends all questions
+    app.get("/questions", (request, response) => {
+        question_table.find({}).toArray((error, result) => {
+            if(error) {
+                return response.status(500).send(error);
             }
-        }).catch((error) => {
-            res.status(500).send() 
-        })
+            response.send(result);
+        });
+    });
 
 
+    //Sends specific question
+    app.get('/questions/:id', (request, response) => {
+        question_table.findOne({ "_id": new ObjectId(request.params.id) }, (error, result) => {
+            if(error) {
+                return response.status(500).send(error);
+            }
+            response.send(result);
+        });
     })
 }
