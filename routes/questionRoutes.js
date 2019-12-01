@@ -3,23 +3,23 @@
 
 module.exports = app => {
     //sends all questions
-    app.get("/questions", (request, response) => {
+    app.get("/questions", (req, res) => {
         question_table.find({}).toArray((error, result) => {
             if(error) {
-                return response.status(500).send(error);
+                return res.status(500).send(error);
             }
-            response.send(result);
+            res.send(result);
         });
     });
 
 
     //Sends specific question
-    app.get('/questions/:id', (request, response) => {
-        question_table.findOne({ "_id": new ObjectId(request.params.id) }, (error, result) => {
+    app.get('/questions/:qid', (req, res) => {
+        question_table.findOne({ "qid": req.params.qid }, (error, result) => {
             if(error) {
-                return response.status(500).send(error);
+                return res.status(500).send(error);
             }
-            response.send(result);
+            res.send(result);
         });
     })
 }

@@ -1,15 +1,28 @@
 module.exports = app => {
     //get all students
-    app.get("/students", (request, response) => {
+    app.get("/students", (req, res) => {
         student_table.find({}).toArray((error, result) => {
             if(error) {
-                return response.status(500).send(error);
+                return res.status(500).send(error);
             }
-            response.send(result);
+            res.send(result);
         });
     });
 
+    //get a specific students
+    app.get("/students/:username", (req, res) => {
+        student_table.findOne({ "username": req.params.username }, (error, result) => {
+            if(error) {
+                return res.status(500).send(error);
+            }
+            res.send(result);
+        });
+    });
+
+
+
     //update specific student's grades given student and Ass id's
+    // --->> shouldn't the new grade be part of the url????
     app.put('/students/:id/:a_id', (req, res) => {
         // Add code here
 
