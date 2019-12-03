@@ -42,6 +42,18 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname + '/client/tmpl/index.html'));
 });
 
+app.get('/admin/dashboard', (req, res) => {
+  res.sendFile(path.join(__dirname + '/client/tmpl/professorDashboard.html'))
+})
+
+app.get('/admin/course', (req, res) => {
+  res.sendFile(path.join(__dirname + '/client/tmpl/professorCourse.html'))
+})
+
+app.get('/admin/account', (req, res) => {
+  res.sendFile(path.join(__dirname + '/client/tmpl/professorAccount.html'))
+})
+
 app.get('/student/dashboard', (req, res) => {
   res.sendFile(path.join(__dirname + '/client/tmpl/dashboard.html'))
 })

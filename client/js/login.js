@@ -15,7 +15,7 @@ function checkCredentials(e) {
     window.location.href = '/student/dashboard';
   }
   else if (idInput.value == 'admin' && pwInput.value == 'admin'){
-    document.location.href = '../tmpl/professorDashboard.html';
+    document.location.href = '/admin/dashboard';
   }
   else {
     let field = document.querySelector('#errorMessage');
