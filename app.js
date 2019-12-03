@@ -37,6 +37,7 @@ app.use(Express.static(__dirname + "/client"));
 require('./routes/questionRoutes')(app)
 require('./routes/studentRoutes')(app)
 require('./routes/assRoutes')(app)
+require('./routes/authRoutes')(app)
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname + '/client/tmpl/index.html'));

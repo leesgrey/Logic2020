@@ -1,11 +1,14 @@
 let questionAnswer = ""
 let myAssignments = []
+let currentAid = ""
+let currentAssignment = {}
+questionTexts = []
 
 // ID of currently displayed question
 curURL = window.location.href.split('/')
 currentQuestion = curURL.pop();
 curAssignment = curURL.pop();
-
+//
 // get DOM elements
 const assignmentTitle = document.querySelector('#assignmentTitle');
 const assignmentDue = document.querySelector('#assignmentDue');
@@ -22,22 +25,9 @@ const questionPromptDisplay = document.querySelector('#questionPrompt');
 
 const feedbackText = document.querySelector('#feedback');
 
-class Assignment {
-  constructor(title, dueDateTime, questions){
-    this.title = title;
-    this.dueDateTime = dueDateTime;
-    this.questions = questions;
-    this.completed = 0;
-    this.total = questions.length;
-    this.assignmentId = numberOfAssignments;
-    numberOfAssignments++;
-  }
-}
-
 // get question text and answer, should get from server
 function getQuestion() {
   const url = '/api/questions/' + currentQuestion
-  console.log(url)
 
   fetch(url).then((res) => {
     if (res.status === 200) {
@@ -46,7 +36,6 @@ function getQuestion() {
       alert('Could not get question')
     }
   }).then((json) => {
-    console.log(json)
     // questionDisplay.innerText =
     questionTitleDisplay.innerText = json.question;
     questionCategoryDisplay.innerText = json.qid;
@@ -72,8 +61,7 @@ function getAssignments() {
     }
   }).then((json) => {
     myAssignments = json
-    console.log(json)
-    if (myAssignments.length == 0){
+    if (myAssignments.length == 0 || currentAid == "practice"){
       assignmentSidebar.style.display = "none";
     } else {
       // displayAssignment(myAssignments[0].aid)
@@ -85,7 +73,7 @@ function getAssignments() {
         }
       }
 
-    }
+//     }
   })
 }
 
@@ -133,7 +121,7 @@ function displayAssignment(position){
         }
       } catch (error) {
         console.log("error");
-      }
+//       }
 
       const innerSidebar = `
       <li class="questionListItem ${done}">
@@ -178,7 +166,6 @@ function displayAssignment(position){
 
   });
 }
-
 
 function getForQuestionType(qid, q) {
   switch (qid.slice(0, 1)) {
