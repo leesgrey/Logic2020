@@ -35,7 +35,9 @@
   cursor: pointer;
   position: absolute;
   left: 10px;
-  top: 20px;
+  /* TODO Change it back when preivew text is shown */
+  /* top: 20px; */
+  top: 11px;
   transition: all 200ms ease-in;
 }
 
@@ -69,6 +71,8 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+  /* TODO REMOVE NONE */
+  display: none;
 }
 
 

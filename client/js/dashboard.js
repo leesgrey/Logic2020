@@ -37,7 +37,7 @@ function getAssignments() {
       const newCardContainer = document.createElement('div');
       newCardContainer.classList.add('flex-item');
       const newLink = document.createElement('a');
-      newLink.href = "/practice/" + myAssignments[i].questions[0]
+      newLink.href = "/practice/" + myAssignments[i].aid + "/" + myAssignments[i].questions[0]
       newCardContainer.appendChild(newLink);
       const newCard = document.createElement('div');
       newCard.classList.add('card--h');
