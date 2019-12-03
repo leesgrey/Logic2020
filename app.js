@@ -50,6 +50,10 @@ app.get('/practice/:qid', (req, res) => {
   res.sendFile(path.join(__dirname + '/client/tmpl/practice.html'))
 })
 
+app.get('/student/account', (req, res) => {
+  res.sendFile(path.join(__dirname + '/client/tmpl/account.html'))
+})
+
 const PORT = process.env.PORT || 5000
 
 app.listen(PORT)
