@@ -20,7 +20,7 @@ class Assignment {
 
 // GETs all assignments, adds them to assignment list
 function getAssignments() {
-  const url = API_URL + '/api/ass'
+  const url = API_URL + '/ass'
   fetch(url).then((res) => {
     if (res.status == 200){
       return res.json()
