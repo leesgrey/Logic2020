@@ -7,7 +7,6 @@ const QuestionSchema = new mongoose.Schema({
     answer: String
 });
 
-
 const question = mongoose.model('questions', QuestionSchema);
 
 module.exports = { question };

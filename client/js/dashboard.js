@@ -20,6 +20,7 @@ class Assignment {
 // get current assignments - requires server call
 myAssignments.push(new Assignment('A1', 'October 16, 2019 23:59', [1,2]));
 
+
 // create card for each assignment
 for (let i = 0; i < myAssignments.length; i++){
   const newCardContainer = document.createElement('div');
