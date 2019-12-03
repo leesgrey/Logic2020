@@ -47,12 +47,12 @@ function getQuestion() {
   }).then((json) => {
     console.log(json)
     // questionDisplay.innerText =
-    questionTitleDisplay.innerText = json.question
-    questionCategoryDisplay.innerText = json.qid
-    // questionPromptDisplay.innerText =
+    questionTitleDisplay.innerText = json.question;
+    questionCategoryDisplay.innerText = json.qid;
+    questionPromptDisplay.innerText = getForQuestionType(json.qid, json.question);
     answerInput.value = "";
     feedbackText.style.display = "none";
-    questionAnswer = json.answer
+    questionAnswer = json.answer;
   })
 }
 
@@ -120,6 +120,33 @@ function displayAssignment(aid){
       questionList.append(newQuestion);
     })
   }
+}
+
+
+function getForQuestionType(qid, q) {
+  switch (qid.slice(0, 1)) {
+    case "R":
+      parseToFormalStructure(q);
+      return "Enter the correct rule (MP, MT, DN, R or None):";
+    default:
+      return "";
+  }
+}
+
+function parseToFormalStructure(question) {
+  const list = question.split(/(?<=\.)/g);
+  const div = document.createElement('div');
+  div.className = 'formalStructureContainer';
+
+  let formatted = `<div class="formalStructure">`;
+  for (let i = 0; i < list.length - 1; i++) {
+    formatted += `<p class="questionTitle">${list[i]}</p>`;
+  }
+  formatted += `<div class="h-line"></div>`;
+  formatted += `<p class="questionTitle">${list[list.length-1]}</p>`;
+  div.innerHTML = formatted;
+
+  document.getElementById('questionTitleContainer').appendChild(div);
 }
 
 function checkAnswer(){
