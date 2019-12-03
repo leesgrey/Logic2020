@@ -23,6 +23,7 @@ function getStudents() {
     }
   }).then((json) => {
     students = json
+    console.log("added users")
   })
 }
 
