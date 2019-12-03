@@ -37,10 +37,11 @@ function checkCredentials(e) {
   for (let i = 0; i < students.length; i++) {
     if (user == students[i].username && pw == students[i].password){
       window.location.href = '/student/dashboard';
-      break
+      return 0
     }
     else if (user== 'admin' && pw== 'admin'){
       document.location.href = '/admin/dashboard';
+      return 0
     }
   }
   let field = document.querySelector('#errorMessage');
