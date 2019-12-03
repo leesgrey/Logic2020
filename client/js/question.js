@@ -1,8 +1,9 @@
 const myAssignments = []
 const questions = [];
 
-// ID of currently displayed question 
-let currentQuestion = 0;
+// ID of currently displayed question
+currentQuestion = window.location.href.split('/').pop()
+console.log(currentQuestion)
 
 class Question {
   constructor(title, HTML, answer, category, answerPrompt, completed){
