@@ -60,8 +60,8 @@ function getAssignments() {
       alert('Could not get assignments')
     }
   }).then((json) => {
-    myAssignments = json
-    if (myAssignments.length == 0 || currentAid == "practice"){
+    myAssignments = json;
+    if (myAssignments.length == 0 || currentAid == "practice") {
       assignmentSidebar.style.display = "none";
     } else {
       // displayAssignment(myAssignments[0].aid)
@@ -72,9 +72,8 @@ function getAssignments() {
           break;
         }
       }
-
-//     }
-  })
+    }
+  });
 }
 
 function displayAssignment(position){
@@ -121,7 +120,7 @@ function displayAssignment(position){
         }
       } catch (error) {
         console.log("error");
-//       }
+      }
 
       const innerSidebar = `
       <li class="questionListItem ${done}">
