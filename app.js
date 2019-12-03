@@ -31,12 +31,12 @@ var app = Express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cors());
+console.log(__dirname)
+app.use(Express.static(__dirname + "/client"));
 
 require('./routes/questionRoutes')(app)
 require('./routes/studentRoutes')(app)
 require('./routes/assRoutes')(app)
-
-app.use(Express.static("client"));
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname + '/client/tmpl/index.html'));
@@ -56,6 +56,10 @@ app.get('/admin/account', (req, res) => {
 
 app.get('/student/dashboard', (req, res) => {
   res.sendFile(path.join(__dirname + '/client/tmpl/dashboard.html'))
+})
+
+app.get('/practice/:aid/:qid', (req, res) => {
+  res.sendFile(path.join(__dirname + '/client/tmpl/practice.html'))
 })
 
 app.get('/practice/:qid', (req, res) => {
