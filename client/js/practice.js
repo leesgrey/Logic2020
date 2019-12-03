@@ -2,6 +2,30 @@
 
 // get DOM elements
 const questions = document.getElementsByClassName('questionLink');
+const assignmentName = document.querySelector("#assignmentName")
+
+// parse ending
+const mode = window.location.href.split('/').pop()
+
+if (mode === "new") {
+
+} else {
+  getAssignment()
+}
+
+function getAssignment() {
+  const url = ("/api/ass/" + mode)
+
+  fetch(url).then((res) => {
+    if (res.status === 200) {
+      return res.json()
+    } else {
+      alert("Could not load assignment")
+    }
+  }).then((json) => {
+    assignmentName.innerText = json.name
+  })
+}
 
 // Add questionLink
 for (let i = 0; i < questions.length; i++) {
