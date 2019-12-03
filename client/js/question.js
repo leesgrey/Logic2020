@@ -75,7 +75,9 @@ function getAssignments() {
     if (myAssignments.length == 0){
       assignmentSidebar.style.display = "none";
     } else {
-      displayAssignment(myAssignments[0].aid)
+      // displayAssignment(myAssignments[0].aid)
+      // TODO replace 0 with link aid from url
+      displayAssignment(0);
     }
   })
 }
