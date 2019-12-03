@@ -3,6 +3,7 @@
 // get DOM elements
 const questions = document.getElementsByClassName('questionLink');
 const assignmentName = document.querySelector("#assignmentName");
+const assignmentDate = document.querySelector("#assignmentDate")
 const allList = document.querySelector("#allQuestions")
 let assignmentQuestions = []
 let allQuestions = []
@@ -30,6 +31,7 @@ function getAssignment() {
   }).then((json) => {
     assignmentName.value = json.name
     assignmentQuestions = json.questions
+    assignmentDate.value = json.due.slice(0, 10)
   })
 }
 
