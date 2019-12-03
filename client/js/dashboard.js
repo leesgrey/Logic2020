@@ -20,7 +20,8 @@ class Assignment {
 
 // GETs all assignments, adds them to assignment list
 function getAssignments() {
-  const url = API_URL + '/ass'
+  const url = API_URL + '/api/ass'
+  console.log(url)
   fetch(url).then((res) => {
     if (res.status == 200){
       return res.json()
@@ -36,7 +37,7 @@ function getAssignments() {
       const newCardContainer = document.createElement('div');
       newCardContainer.classList.add('flex-item');
       const newLink = document.createElement('a');
-      newLink.href = "/practice.html?question=R_1.001"
+      newLink.href = "/practice/R_1.001"
       newCardContainer.appendChild(newLink);
       const newCard = document.createElement('div');
       newCard.classList.add('card--h');

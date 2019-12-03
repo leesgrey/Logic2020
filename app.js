@@ -45,6 +45,11 @@ app.get('/', (req, res) => {
 app.get('/student/dashboard', (req, res) => {
   res.sendFile(path.join(__dirname + '/client/tmpl/dashboard.html'))
 })
+
+app.get('/practice/:qid', (req, res) => {
+  res.sendFile(path.join(__dirname + '/client/tmpl/practice.html'))
+})
+
 const PORT = process.env.PORT || 5000
 
 app.listen(PORT)
