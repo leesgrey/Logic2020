@@ -19,10 +19,9 @@ module.exports = app => {
         ass_table.insertOne( { "name": name, "questions": q_ids , "aid": aid} ).catch((error) => {
             res.status(500).send() 
         })
-
         student_table.updateMany(
             {},
-            { $push: { "grades" : 0 } }
+            { $push: { "assignments" : {"aid": aid, "number": q_ids.length, "grade": 0} } }
          ).catch((error) => {
             res.status(500).send() 
         });

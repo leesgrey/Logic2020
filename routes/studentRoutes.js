@@ -1,7 +1,7 @@
 module.exports = app => {
     //get all students
     //input body: NA
-    //output: [{ "Student": { "_id": 0, "username": "user", "password": "user", "first_name": "james", "last_name": "parker","grades": [0,90,0] }, .....]
+    //output: [{ "Student": { "_id": 0, "username": "user", "password": "user", "first_name": "james", "last_name": "parker","ass": {aid: 0 , number_qs: 5 ,grade: 0 }, .....]
 
 
     app.get("/api/students", (req, res) => {
@@ -15,7 +15,7 @@ module.exports = app => {
 
     //get a specific students
     //input body: NA
-    //output: { "Student": { "_id": 0, "username": "user", "password": "user", "first_name": "james", "last_name": "parker","grades": [0,90,0] }
+    //output: { "Student": { "_id": 0, "username": "user", "password": "user", "first_name": "james", "last_name": "parker","ass": {aid: 0 , number_qs: 5 ,grade: 0 } }
 
     app.get("/api/students/:username", (req, res) => {
         student_table.findOne({ "username": req.params.username }, (error, result) => {
@@ -44,8 +44,14 @@ module.exports = app => {
             if(error) {
                 return res.status(500).send(error);
             }
-            result.grades[aid] += req.body.points;
-            student_table.updateOne( { "username": req.params.username}, { $set: { "grades" : result.grades } })
+            for (let i=0; i < result.assignments.length; i++  ){
+                if (result.assignments[i].aid == aid){
+                    result.assignments[i].grade+= 1/result.assignments[i].number
+                    break
+                }
+            
+            }
+            student_table.updateOne( { "username": req.params.username}, { $set: { "assignments" : result.assignments } })
 
             res.send(result);
 
