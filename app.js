@@ -24,6 +24,7 @@ MongoClient.connect(CONNECTION_URL, { useNewUrlParser: true }, (error, client) =
     }
     database = client.db(DATABASE_NAME);
     question_table = database.collection("questions");
+    ass_table = database.collection("ass");
     student_table = database.collection("Students");
     console.log("Connected to " + DATABASE_NAME + "!");
 });
@@ -37,6 +38,8 @@ app.use(cors());
 
 require('./routes/questionRoutes')(app)
 require('./routes/studentRoutes')(app)
+require('./routes/assRoutes')(app)
+
 
 app.get('/', (req, res) => {
     res.send({'hi':'hello'})
