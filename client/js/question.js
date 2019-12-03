@@ -87,22 +87,6 @@ function getAssignments() {
   })
 }
 
-function getQuestionPreview(qid, newPreview, i) {
-  const url = '/api/questions/' + qid
-
-  fetch(url).then((res) => {
-    if (res.status === 200) {
-      return res.json()
-    } else {
-      alert('Could not get questions')
-    }
-  }).then((json) => {
-    console.log(json.question)
-    questionTexts.push(json.question)
-    newPreview.innerText = questionTexts[i]
-  })
-}
-
 
 function displayAssignment(assignment){
   assignmentTitle.innerText = assignment.name;
@@ -126,11 +110,6 @@ function displayAssignment(assignment){
       newQuestionType.classList.add('cyan-txt');
       newQuestionType.innerText = json.qid
       newQuestion.appendChild(newQuestionType);
-      newPreview = document.createElement('p');
-      newPreview.classList.add('questionPreviewText');
-      newPreview.classList.add('sm-txt');
-      getQuestionPreview(assignment.questions[i], newPreview, i)
-      newQuestion.appendChild(newPreview);
       /*
       if (questions[myAssignments[0].questions[i]].completed){
         newQuestion.classList.add('done');
