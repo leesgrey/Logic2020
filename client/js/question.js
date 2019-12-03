@@ -2,8 +2,9 @@ let questionAnswer = ""
 let myAssignments = []
 
 // ID of currently displayed question
-currentQuestion = window.location.href.split('/').pop()
-console.log(currentQuestion)
+curURL = window.location.href.split('/')
+currentQuestion = curURL.pop();
+curAssignment = curURL.pop();
 
 // get DOM elements
 const assignmentTitle = document.querySelector('#assignmentTitle');
@@ -77,51 +78,105 @@ function getAssignments() {
     } else {
       // displayAssignment(myAssignments[0].aid)
       // TODO replace 0 with link aid from url
-      displayAssignment(0);
+      for (let i = 0; i < myAssignments.length; i++) {
+        if (myAssignments[i].aid === curAssignment) {
+          displayAssignment(i);
+          break;
+        }
+      }
+
     }
   })
 }
 
-function displayAssignment(aid){
-  assignmentTitle.innerText = myAssignments[aid].name;
-  // assignmentDue.innerText = myAssignments[aid].dueDateTime;
+function displayAssignment(position){
+  const thisA = myAssignments[position];
+  assignmentTitle.innerText = thisA.name;
+  const due = new Date(thisA.due);
+  let formattedDate = `${due.getFullYear()}/${due.getMonth()}/${due.getDate()} 23:59`;
+  assignmentDue.innerText = formattedDate;
   // assignmentCompletion.innerText = (myAssignments[0].completed / myAssignments[0].total).toFixed(2) * 100 + '%';
   questionList.innerHTML = "";
-  // for each question, add to sidebar - requires server calls
-  for (let i = 0; i < myAssignments[aid].questions.length; i++){
-    const questionUrl = '/api/questions/' + myAssignments[aid].questions[i]
-    console.log(questionUrl)
 
-    fetch(questionUrl).then((res) => {
-      if (res.status === 200) {
-        return res.json()
-      } else {
-        alert('Could not get assignment question')
+  // fetching solutions
+  const solutionUrl = `/api/students/user3`;
+  fetch(solutionUrl).then((res) => {
+    if (res.status === 200) {
+      return res.json()
+    } else {
+      alert('Could not get solution question');
+    }
+  }).then((json) => {
+
+    // for each question, add to sidebar - requires server calls
+    for (let i = 0; i < thisA.questions.length; i++){
+      const questionUrl = `/practice/${curAssignment}/${thisA.questions[i]}`;
+      console.log(questionUrl)
+
+      newQuestion = document.createElement('a');
+      newQuestion.href = questionUrl;
+      let done = "";
+      let answer;
+      try {
+        for (let j = 0; j < json.solutions.length; j++){
+          console.log("here");
+          if (json.solutions[j].qid === thisA.questions[i]) {
+            if (json.solutions[j].answer != ""){
+              console.log("here2");
+              done = 'done';
+              if (json.solutions[j].qid === currentQuestion){
+                answerInput.value = json.solutions[j].answer;
+              }
+            }
+            break;
+          }
+        }
+      } catch (error) {
+        console.log("error");
       }
-    }).then((json) => {
-      console.log(json)
-      newQuestion = document.createElement('li');
-      newQuestion.classList.add('questionListItem');
-      newQuestionType = document.createElement('p');
-      newQuestionType.classList.add('cyan-txt');
-      newQuestionType.innerText = json.qid
-      newQuestion.appendChild(newQuestionType);
-      newPreview = document.createElement('p');
-      newPreview.classList.add('questionPreviewText');
-      newPreview.classList.add('sm-txt');
-      newPreview.innerText = questions[myAssignments[0].questions[i]];
-      newQuestion.appendChild(newPreview);
-      /*
-      if (questions[myAssignments[0].questions[i]].completed){
-        newQuestion.classList.add('done');
-      }
-      newQuestion.addEventListener('click', function(){
-        updateQuestion(i)
-      });
-      */
+
+      const innerSidebar = `
+      <li class="questionListItem ${done}">
+        <p class="cyan-txt">${thisA.questions[i]}</p>
+      </li>
+      `;
+
+      newQuestion.innerHTML = innerSidebar;
       questionList.append(newQuestion);
-    })
-  }
+
+
+      // fetch(questionUrl).then((res) => {
+      //   if (res.status === 200) {
+      //     return res.json()
+      //   } else {
+      //     alert('Could not get assignment question')
+      //   }
+      // }).then((json) => {
+      //   console.log(json)
+      //   newQuestion = document.createElement('li');
+      //   newQuestion.classList.add('questionListItem');
+      //   newQuestionType = document.createElement('p');
+      //   newQuestionType.classList.add('cyan-txt');
+      //   newQuestionType.innerText = json.qid
+      //   newQuestion.appendChild(newQuestionType);
+      //   newPreview = document.createElement('p');
+      //   newPreview.classList.add('questionPreviewText');
+      //   newPreview.classList.add('sm-txt');
+      //   newPreview.innerText = questions[myAssignments[0].questions[i]];
+      //   newQuestion.appendChild(newPreview);
+      //   /*
+      //   if (questions[myAssignments[0].questions[i]].completed){
+      //     newQuestion.classList.add('done');
+      //   }
+      //   newQuestion.addEventListener('click', function(){
+      //     updateQuestion(i)
+      //   });
+      //   */
+      //   questionList.append(newQuestion);
+      // })
+    }
+
+  });
 }
 
 
@@ -148,7 +203,9 @@ function parseToFormalStructure(question) {
   formatted += `<p class="questionTitle">${list[list.length-1]}</p>`;
   div.innerHTML = formatted;
 
-  document.getElementById('questionTitleContainer').appendChild(div);
+  const qDetails = document.getElementById('questionDetails');
+  qDetails.innerHTML = "";
+  qDetails.appendChild(div);
 }
 
 function checkAnswer(){
