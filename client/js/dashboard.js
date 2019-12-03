@@ -1,4 +1,5 @@
 "use strict";
+const API_URL = 'http://localhost:5000'
 
 // get DOM elements
 const assignmentBox = document.querySelector('#assignments');
@@ -17,9 +18,24 @@ class Assignment {
   }
 }
 
+// GETs all assignments, adds them to assignment list
+function getAssignments() {
+  const url = API_URL + '/api/ass'
+  fetch(url).then((res) => {
+    if (res.status == 200){
+      return res.json()
+    } else {
+      alert('Could not get assignments')
+    }
+  }).then((json) => {
+    console.log(json)
+  })
+}
+
+getAssignments()
+
 // get current assignments - requires server call
 myAssignments.push(new Assignment('A1', 'October 16, 2019 23:59', [1,2]));
-
 
 // create card for each assignment
 for (let i = 0; i < myAssignments.length; i++){
