@@ -15,8 +15,10 @@ module.exports = app => {
         const name = req.body.name
         const q_ids = req.body.q_ids
         const aid = req.body.aid
+        const due = req.body.due
 
-        ass_table.insertOne( { "name": name, "questions": q_ids , "aid": aid} ).catch((error) => {
+
+        ass_table.insertOne( { "name": name, "questions": q_ids , "aid": aid, "due": due} ).catch((error) => {
             res.status(500).send() 
         })
         student_table.updateMany(
