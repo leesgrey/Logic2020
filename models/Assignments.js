@@ -3,13 +3,13 @@ const { Schema } = mongoose;
 
 
 const QuestionSchema = new mongoose.Schema({
-    qid: Int,
+    qid: String,
     question: String,
     answer: String
 });
 
 const AssSchema = new mongoose.Schema({
-    aid: Int,
+    aid: String,
     name: String,
     questions: [QuestionSchema]
 });

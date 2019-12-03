@@ -35,6 +35,7 @@ app.use(cors());
 require('./routes/questionRoutes')(app)
 require('./routes/studentRoutes')(app)
 require('./routes/assRoutes')(app)
+require('./routes/authRoutes')(app)
 
 app.use(Express.static("client"));
 
