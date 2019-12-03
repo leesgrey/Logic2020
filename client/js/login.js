@@ -12,7 +12,7 @@ pwInput.addEventListener('keyup', checkEnter);
 // check login credentials and go to appropriate dashboard
 function checkCredentials(e) {
   if (idInput.value == 'user' && pwInput.value == 'user'){
-    document.location.href = '../tmpl/dashboard.html';
+    window.location.href = '/student/dashboard';
   }
   else if (idInput.value == 'admin' && pwInput.value == 'admin'){
     document.location.href = '../tmpl/professorDashboard.html';

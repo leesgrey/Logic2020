@@ -1,6 +1,7 @@
 const Express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require('body-parser');
+const path = require('path');
 
 const cors = require('cors');
 
@@ -35,11 +36,15 @@ require('./routes/questionRoutes')(app)
 require('./routes/studentRoutes')(app)
 require('./routes/assRoutes')(app)
 
+app.use(Express.static("client"));
 
 app.get('/', (req, res) => {
-    res.send({'hi':'hello'})
+    res.sendFile(path.join(__dirname + '/client/tmpl/index.html'));
 });
 
+app.get('/student/dashboard', (req, res) => {
+  res.sendFile(path.join(__dirname + '/client/tmpl/dashboard.html'))
+})
 const PORT = process.env.PORT || 5000
 
 app.listen(PORT)
