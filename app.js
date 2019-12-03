@@ -2,6 +2,10 @@ const Express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require('body-parser');
 
+
+
+const cors = require('cors');
+
 const keys = require('./config/keys');
 require('./models/Students');
 
@@ -29,6 +33,7 @@ var app = Express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+app.use(cors());
 
 require('./routes/questionRoutes')(app)
 require('./routes/studentRoutes')(app)
