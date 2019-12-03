@@ -31,7 +31,7 @@ module.exports = app => {
 
 
     //get specific Assignment
-    app.get('/api/ass/aid', (req, res) => {
+    app.get('/api/ass/:aid', (req, res) => {
         ass_table.findOne({ "aid": req.params.aid }, (error, result) => {
             if(error) {
                 return res.status(500).send(error);

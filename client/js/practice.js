@@ -23,7 +23,7 @@ function getAssignment() {
       alert("Could not load assignment")
     }
   }).then((json) => {
-    assignmentName.innerText = json.name
+    assignmentName.value = json.name
   })
 }
 
