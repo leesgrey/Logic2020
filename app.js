@@ -66,6 +66,10 @@ app.get('/student/account', (req, res) => {
   res.sendFile(path.join(__dirname + '/client/tmpl/account.html'))
 })
 
+app.get('/admin/assignment/:aid', (req, res) => {
+  res.sendFile(path.join(__dirname + '/client/tmpl/createAssignment.html'))
+})
+
 const PORT = process.env.PORT || 5000
 
 app.listen(PORT)
