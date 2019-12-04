@@ -2,7 +2,8 @@ let questionAnswer = ""
 let myAssignments = []
 let currentAid = ""
 let currentAssignment = {}
-questionTexts = []
+let questionTexts = []
+let studentAnswered = []
 
 // ID of currently displayed question
 curURL = window.location.href.split('/')
@@ -24,6 +25,23 @@ const questionCategoryDisplay = document.querySelector('#questionCategory');
 const questionPromptDisplay = document.querySelector('#questionPrompt');
 
 const feedbackText = document.querySelector('#feedback');
+
+let user = ""
+
+fetch('/api/student/login').then((res) => {
+  if (res.status === 200) {
+    return res.json()
+  }
+  else {
+    alert ("could not get current user")
+  }
+}).then((json) => {
+  user = json["user"]
+  return 0
+}).then(() => {
+  console.log(user)
+})
+
 
 // get question text and answer, should get from server
 function getQuestion() {
@@ -84,16 +102,19 @@ function displayAssignment(position){
   // assignmentCompletion.innerText = (myAssignments[0].completed / myAssignments[0].total).toFixed(2) * 100 + '%';
   questionList.innerHTML = "";
 
-  // fetching solutions
-  const solutionUrl = `/api/students/user3`;
-  fetch(solutionUrl).then((res) => {
+  // fetching student's answered
+  const studentUrl = "/api/students/" + user;
+  fetch(studentUrl).then((res) => {
     if (res.status === 200) {
+      console.log(res)
       return res.json()
     } else {
-      alert('Could not get solution question');
+      alert('Could not get student');
     }
   }).then((json) => {
-
+    json.solved = studentAnswered
+    return json
+  }).then((json) =>
     // for each question, add to sidebar - requires server calls
     for (let i = 0; i < thisA.questions.length; i++){
       const questionUrl = `/practice/${curAssignment}/${thisA.questions[i]}`;
@@ -106,7 +127,10 @@ function displayAssignment(position){
       // if question is in user's answered, mark as done
       console.log("questions:")
       console.log(thisA.questions)
-//      if thisA.questions[i] in
+      if (thisA.questions[i] in studentAnswered){
+        done = 'done'
+      }
+/*
       try {
         for (let j = 0; j < json.solutions.length; j++){
           console.log("here");
@@ -125,6 +149,7 @@ function displayAssignment(position){
       } catch (error) {
         console.log("error");
       }
+      */
 
       const innerSidebar = `
       <li class="questionListItem ${done}">

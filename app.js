@@ -119,6 +119,10 @@ app.get('/admin/assignment/:aid', isloggedInAsAdmin, (req, res) => {
   res.sendFile(path.join(__dirname + '/client/tmpl/createAssignment.html'))
 })
 
+app.get('/api/student/login', isloggedInAsStudent, (req, res) => {
+  res.send({"user": req.session.user})
+})
+
 app.get('*', (req, res) => {
   res.redirect('/');
 })
