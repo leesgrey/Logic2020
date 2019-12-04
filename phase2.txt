@@ -1,0 +1,48 @@
+Logic2020
+
+Logic 2020 is an web implementation of Logic 2010 (https://logiclx.humnet.ucla.edu).
+This is a web application which allows students to practice philosophy logic questions and get validation for their coursework.
+
+Access
+
+Deployed App Link: https://floating-oasis-22901.herokuapp.com/
+Local: npm run serve
+
+Testing
+
+Login Credentials
+Student Login Credentials:
+```
+ID: user
+password: user
+```
+
+Professor Login Credentials:
+```
+ID: admin
+password: admin
+```
+
+Example Question Module
+Click "Recognizing Rules" under Question Section at the Dashboard
+
+Question RECOG 1.003
+Answer: MP
+
+Question RECOG 1.004
+Answer: MT
+
+
+Professor(admin) Course Page
+    - Display Course information: time, class size and class average in the "Manage courses" section
+        - Show a table of all student with grades and averages
+
+    -Add and view assignments under "Manage assignments"
+        - You can check and uncheck question on the question list
+        - You can remove a selected question by clicking the cross at the selected question list
+
+User Page:
+    users can see their assignments under "Your assignments"
+        - will answer questions and get instant feedback
+        - marks are added to their assignment grade and overall grade is visible in the admin "course page"
+
