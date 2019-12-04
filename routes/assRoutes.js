@@ -14,7 +14,7 @@ module.exports = app => {
     app.post("/api/ass", (req, res) => {
         const name = req.body.name
         const q_ids = req.body.q_ids
-        const aid = req.body.aid
+        const aid = toString(req.body.aid)
         const due = req.body.due
 
         ass_table.insertOne( { "name": name, "questions": q_ids , "aid": aid, "due": due} ).catch((error) => {

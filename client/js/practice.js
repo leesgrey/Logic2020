@@ -23,6 +23,7 @@ getAllQuestions()
 
 function getAssignment(mode) {
   const url = "/api/ass/" + mode
+  console.log(url)
   fetch(url).then((res) => {
     if (res.status === 200) {
       return res.json()
