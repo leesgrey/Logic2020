@@ -15,7 +15,7 @@ function getStudents() {
   }).then( (json) => {
     classSize.innerText = json.length
     json.map((s) => {
-      studentBody.innerHTML += "<tr><td>" + s._id + "</td><td>" + s.first_name + " " + s.last_name + "</td><td></td><td></td></tr>"
+      studentBody.innerHTML += "<tr><td>" + s._id + "</td><td>" + s.first_name + " " + s.last_name + "</td><td>" + s.email + "</td><td></td></tr>"
     })
   })
 }
