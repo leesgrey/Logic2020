@@ -3,13 +3,13 @@ let myAssignments = []
 let currentAid = ""
 let currentAssignment = {}
 let questionTexts = []
-let studentAnswered = []
+let user = ""
 
 // ID of currently displayed question
 curURL = window.location.href.split('/')
 currentQuestion = curURL.pop();
 curAssignment = curURL.pop();
-
+//
 // get DOM elements
 const assignmentTitle = document.querySelector('#assignmentTitle');
 const assignmentDue = document.querySelector('#assignmentDue');
@@ -26,8 +26,6 @@ const questionPromptDisplay = document.querySelector('#questionPrompt');
 
 const feedbackText = document.querySelector('#feedback');
 
-let user = ""
-
 fetch('/api/student/login').then((res) => {
   if (res.status === 200) {
     return res.json()
@@ -41,7 +39,6 @@ fetch('/api/student/login').then((res) => {
 }).then(() => {
   console.log(user)
 })
-
 
 // get question text and answer, should get from server
 function getQuestion() {
@@ -83,6 +80,7 @@ function getAssignments() {
       assignmentSidebar.style.display = "none";
     } else {
       // displayAssignment(myAssignments[0].aid)
+      // TODO replace 0 with link aid from url
       for (let i = 0; i < myAssignments.length; i++) {
         if (myAssignments[i].aid === curAssignment) {
           displayAssignment(i);
@@ -102,55 +100,32 @@ function displayAssignment(position){
   // assignmentCompletion.innerText = (myAssignments[0].completed / myAssignments[0].total).toFixed(2) * 100 + '%';
   questionList.innerHTML = "";
 
-  // fetching student's answered
-  const studentUrl = "/api/students/" + user;
-  fetch(studentUrl).then((res) => {
+  // fetching solutions
+  const solutionUrl = "/api/students/" + user;
+  fetch(solutionUrl).then((res) => {
     if (res.status === 200) {
-      console.log(res)
       return res.json()
     } else {
-      alert('Could not get student');
+      alert('Could not get solution question');
     }
   }).then((json) => {
-    json.solved = studentAnswered
-    return json
-  }).then((json) =>
+
     // for each question, add to sidebar - requires server calls
     for (let i = 0; i < thisA.questions.length; i++){
       const questionUrl = `/practice/${curAssignment}/${thisA.questions[i]}`;
-      console.log(questionUrl)
 
       newQuestion = document.createElement('a');
       newQuestion.href = questionUrl;
       let done = "";
       let answer;
-      // if question is in user's answered, mark as done
-      console.log("questions:")
-      console.log(thisA.questions)
-      if (thisA.questions[i] in studentAnswered){
-        done = 'done'
-      }
-/*
-      try {
-        for (let j = 0; j < json.solutions.length; j++){
-          console.log("here");
-          // if question is in user's answered, change done
-          if (json.solutions[j].qid === thisA.questions[i]) {
-            if (json.solutions[j].answer != ""){
-              console.log("here2");
-              done = 'done';
-              if (json.solutions[j].qid === currentQuestion){
-                answerInput.value = json.solutions[j].answer;
-              }
-            }
-            break;
-          }
-        }
-      } catch (error) {
-        console.log("error");
-      }
-      */
 
+      if (thisA.questions[i] in json.solutions){
+        console.log(thisA.questions[i] + "in solutions")
+        if (thisA.questions[i] === currentQuestion) {
+          answerInput.value = json.solutions[thisA.questions[i]]
+        }
+        done = 'done';
+      }
       const innerSidebar = `
       <li class="questionListItem ${done}">
         <p class="cyan-txt">${thisA.questions[i]}</p>
@@ -159,7 +134,39 @@ function displayAssignment(position){
 
       newQuestion.innerHTML = innerSidebar;
       questionList.append(newQuestion);
+
+
+      // fetch(questionUrl).then((res) => {
+      //   if (res.status === 200) {
+      //     return res.json()
+      //   } else {
+      //     alert('Could not get assignment question')
+      //   }
+      // }).then((json) => {
+      //   console.log(json)
+      //   newQuestion = document.createElement('li');
+      //   newQuestion.classList.add('questionListItem');
+      //   newQuestionType = document.createElement('p');
+      //   newQuestionType.classList.add('cyan-txt');
+      //   newQuestionType.innerText = json.qid
+      //   newQuestion.appendChild(newQuestionType);
+      //   newPreview = document.createElement('p');
+      //   newPreview.classList.add('questionPreviewText');
+      //   newPreview.classList.add('sm-txt');
+      //   newPreview.innerText = questions[myAssignments[0].questions[i]];
+      //   newQuestion.appendChild(newPreview);
+      //   /*
+      //   if (questions[myAssignments[0].questions[i]].completed){
+      //     newQuestion.classList.add('done');
+      //   }
+      //   newQuestion.addEventListener('click', function(){
+      //     updateQuestion(i)
+      //   });
+      //   */
+      //   questionList.append(newQuestion);
+      // })
     }
+
   });
 }
 
@@ -196,6 +203,12 @@ function checkAnswer(){
     feedbackText.className = "";
     feedbackText.classList.add("mint-txt");
     feedbackText.innerText = "Correct!";
+    /* if (!questions[currentQuestion].completed){
+      questions[currentQuestion].completed = true;
+      myAssignments[0].completed++;
+      updateAssignment();
+    }
+    */
   }
   else {
     feedbackText.className = "";
@@ -204,6 +217,9 @@ function checkAnswer(){
   }
   feedbackText.style.display = "block";
 }
+
+//updateQuestion(0);
+//updateAssignment();
 
 getQuestion()
 getAssignments()

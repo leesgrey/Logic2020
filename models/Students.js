@@ -7,7 +7,8 @@ const studentSchema = new Schema({
     password: String,
     first_name: String,
     last_name: String,
-    grades: Array
+    grades: Array,
+    solved: Array
 });
 
 mongoose.model('students', studentSchema);
