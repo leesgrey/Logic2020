@@ -10,7 +10,7 @@ let students = []
 loginButton.addEventListener('click', checkCredentials);
 pwInput.addEventListener('keyup', checkEnter);
 
-
+let omg;
 // check login credentials and go to appropriate dashboard
 function checkCredentials(e) {
   const user = idInput.value
@@ -24,26 +24,27 @@ function checkCredentials(e) {
   fetch('/api/login', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json;charset=utf-8'
+      'Content-Type': 'application/json'
     },
     body: JSON.stringify(userInfo)
   }).then((res) => {
     if (res.status === 200) {
-      document.location.href = '/student/dashboard';
-      return 0;
+      return res.json();
     } else {
-      if (user=='admin' && pw=='admin'){
-        document.location.href = '/admin/dashboard';
-      } else {
-        let field = document.querySelector('#errorMessage');
-        let message = document.createElement('p');
-        if (field.innerHTML.trim().length === 0) {
-          message.innerHTML = "*username or password entered is incorrect";
-          message.style.color = "#FF357B"
-        }
-        field.appendChild(message)
+      let field = document.querySelector('#errorMessage');
+      let message = document.createElement('p');
+      if (field.innerHTML.trim().length === 0) {
+        message.innerHTML = "*username or password entered is incorrect";
+        message.style.color = "#FF357B"
       }
+      field.appendChild(message)
       return 0;
+    }
+  }).then(function(body){
+    if (body.type === "student") {
+      document.location.href = '/student/dashboard';
+    } else {
+      document.location.href = '/admin/dashboard';
     }
   });
 }

@@ -5,16 +5,19 @@ module.exports = app => {
   // verify user login by checking username and password, sends error if not
   app.post("/api/login", (req, res) => {
     student_table.findOne({ "username": req.body.username }, (error, result) => {
-      if(error) {
+      if (error || result === null) {
         return res.status(400).send(error);
       }
       if (req.body.password != result.password){
         return res.status(400).send('Wrong Password');
       }
 
+      req.session.type = result.type;
       req.session.user = req.body.username;
       req.session.password = req.body.password;
-      res.send(result);
+
+      // res.send({data: result});
+      res.send({data: {type: result.type}});
     });
   });
 

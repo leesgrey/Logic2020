@@ -51,17 +51,23 @@ app.use(session({
 const sessionChecker = (req, res, next) => {
   if (req.session.user) {
     console.log("Checking session: " + req.session.user);
-    res.redirect('/student/dashboard'); // redirect to dashboard if logged in.
+    // res.redirect('/student/dashboard'); // redirect to dashboard if logged in.
+    if (req.session.type === "student") {
+      res.redirect('/student/dashboard');
+    } else {
+      res.redirect('/admin/dashboard');
+    }
   } else {
     next(); // next() moves on to the route.
   }
 };
 
 const isloggedIn = (req, res, next) => {
+  console.log("what is the urllll " + req);
   if (req.session.user) {
     next();
   } else {
-    res.redirect('/'); // redirect to dashboard if logged in.
+    res.redirect('/');
   }
 };
 
