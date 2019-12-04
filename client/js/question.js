@@ -226,5 +226,3 @@ answerInput.addEventListener("keyup", event => {
   }
   feedbackText.style.display = "none";
 });
-
-get question
