@@ -10,47 +10,42 @@ let students = []
 loginButton.addEventListener('click', checkCredentials);
 pwInput.addEventListener('keyup', checkEnter);
 
-// get all users
-function getStudents() {
-  const url = "/api/students"
-
-  fetch(url).then((res) => {
-    if (res.status === 200) {
-      console.log("returning")
-      return res.json()
-    } else {
-      alert('Could not load users')
-    }
-  }).then((json) => {
-    students = json
-    console.log("added users")
-  })
-}
-
-getStudents()
 
 // check login credentials and go to appropriate dashboard
 function checkCredentials(e) {
   const user = idInput.value
   const pw = pwInput.value
 
-  for (let i = 0; i < students.length; i++) {
-    if (user == students[i].username && pw == students[i].password){
-      window.location.href = '/student/dashboard';
-      return 0
+  let userInfo = {
+    username: user,
+    password: pw
+  };
+
+  fetch('/api/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8'
+    },
+    body: JSON.stringify(userInfo)
+  }).then((res) => {
+    if (res.status === 200) {
+      document.location.href = '/student/dashboard';
+      return 0;
+    } else {
+      if (user=='admin' && pw=='admin'){
+        document.location.href = '/admin/dashboard';
+      } else {
+        let field = document.querySelector('#errorMessage');
+        let message = document.createElement('p');
+        if (field.innerHTML.trim().length === 0) {
+          message.innerHTML = "*username or password entered is incorrect";
+          message.style.color = "#FF357B"
+        }
+        field.appendChild(message)
+      }
+      return 0;
     }
-    else if (user== 'admin' && pw== 'admin'){
-      document.location.href = '/admin/dashboard';
-      return 0
-    }
-  }
-  let field = document.querySelector('#errorMessage');
-  let message = document.createElement('p');
-  if (field.innerHTML.trim().length === 0) {
-    message.innerHTML = "*username or password entered is incorrect";
-    message.style.color = "red"
-  }
-  field.appendChild(message)
+  });
 }
 
 
