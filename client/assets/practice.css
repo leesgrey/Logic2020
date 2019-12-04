@@ -93,10 +93,10 @@
 }
 
 .removeSelectedQuestionBtn {
-  right: -12px;
-  top: 20px;
   width: 15px;
   height: 15px;
+  left: 0;
+  top: 11px;
 }
 
 .selectedQuestionListItem {
@@ -104,6 +104,7 @@
   padding: 10px 0;
   max-width: 300px;
   text-overflow: ellipsis;
+  padding-left: 25px;
 }
 
 .questionTitle{
