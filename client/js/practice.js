@@ -13,14 +13,16 @@ let allQuestions = []
 // parse ending
 const mode = window.location.href.split('/').pop()
 
-getAssignment()
+if (mode==="new"){
+  getAssignment("")
+} else {
+  getAssignment(mode)
+}
 
 getAllQuestions()
 
-
-function getAssignment(callback) {
-  const url = ("/api/ass/" + mode)
-
+function getAssignment(mode) {
+  const url = "/api/ass/" + mode
   fetch(url).then((res) => {
     if (res.status === 200) {
       return res.json()
@@ -28,7 +30,7 @@ function getAssignment(callback) {
       alert("Could not load assignment")
     }
   }).then((json) => {
-    if (mode === "new"){
+    if (mode === ""){
       assignmentCount = json.length
     } else {
       assignmentName.value = json.name
@@ -87,34 +89,39 @@ function loadAssignmentQuestions() {
   })
 }
 
+
 function updateAssignment(e) {
+  console.log(assignmentDate)
   e.preventDefault()
+  let request = null
+
   let url = ""
   let data = {
     "name": assignmentName.value,
+    "q_ids": unsavedAssignmentQuestions,
     "aid": mode === "new" ? assignmentCount : mode,
-    "due": assignmentDate,
-    "questions": unsavedAssignmentQuestions
+    "due": assignmentDate.value
   }
 
   if (mode === "new") {
     url = "/api/ass"
-  }
-  else {
+
+    request = new Request(url, {
+      method: 'post',
+      body: JSON.stringify(data),
+      headers: {
+         'Accept': 'application/json, text/plain, */*',
+         'Content-Type': 'application/json'
+      },
+    })
+  } else {
     url = "/api/ass/mode"
   }
-
-  const request = new Request(url,
-    {method: 'put',
-     body: JSON.stringify(data),
-     headers: {
-       'Accept': 'application/json, text/plain, */*',
-       'Content-Type': 'application/json'
-  }})
-
-  .fetch(request).then(function(res) {
+  fetch(request).then(function(res) {
     if (res.status === 200) {
-      getAssignment()
+      console.log("Added assignment")
+    } else {
+      alert("Could not add assignment")
     }
   })
 }
@@ -134,6 +141,9 @@ for (let i = 0; i < questions.length; i++) {
 }
 
 */
+
+updateAssignmentButton.addEventListener("click", updateAssignment)
+
 function addQuestion(e) {
   console.log(e.target)
   const q = e.target

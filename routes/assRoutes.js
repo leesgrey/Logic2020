@@ -17,15 +17,14 @@ module.exports = app => {
         const aid = req.body.aid
         const due = req.body.due
 
-
         ass_table.insertOne( { "name": name, "questions": q_ids , "aid": aid, "due": due} ).catch((error) => {
-            res.status(500).send() 
+            res.status(500).send(error)
         })
         student_table.updateMany(
             {},
             { $push: { "assignments" : {"aid": aid, "number": q_ids.length, "grade": 0} } }
          ).catch((error) => {
-            res.status(500).send() 
+            res.status(500).send(error)
         });
 
         res.send({ "name": name, "aid": aid, "questions": q_ids })
