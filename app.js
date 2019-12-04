@@ -62,12 +62,19 @@ const sessionChecker = (req, res, next) => {
   }
 };
 
-const isloggedIn = (req, res, next) => {
-  console.log("what is the urllll " + req);
-  if (req.session.user) {
+const isloggedInAsStudent = (req, res, next) => {
+  if (req.session.user && req.session.type == "student") {
     next();
   } else {
-    res.redirect('/');
+    res.status(401).redirect('/');
+  }
+};
+
+const isloggedInAsAdmin = (req, res, next) => {
+  if (req.session.user && req.session.type == "admin") {
+    next();
+  } else {
+    res.status(401).redirect('/');
   }
 };
 
@@ -80,36 +87,40 @@ app.get('/', sessionChecker, (req, res) => {
     res.sendFile(path.join(__dirname + '/client/tmpl/index.html'));
 });
 
-app.get('/admin/dashboard', isloggedIn, (req, res) => {
+app.get('/admin/dashboard', isloggedInAsAdmin, (req, res) => {
   res.sendFile(path.join(__dirname + '/client/tmpl/professorDashboard.html'))
 })
 
-app.get('/admin/course', isloggedIn, (req, res) => {
+app.get('/admin/course', isloggedInAsAdmin, (req, res) => {
   res.sendFile(path.join(__dirname + '/client/tmpl/professorCourse.html'))
 })
 
-app.get('/admin/account', isloggedIn, (req, res) => {
+app.get('/admin/account', isloggedInAsAdmin, (req, res) => {
   res.sendFile(path.join(__dirname + '/client/tmpl/professorAccount.html'))
 })
 
-app.get('/student/dashboard', isloggedIn, (req, res) => {
+app.get('/student/dashboard', isloggedInAsStudent, (req, res) => {
   res.sendFile(path.join(__dirname + '/client/tmpl/dashboard.html'))
 })
 
-app.get('/practice/:aid/:qid', isloggedIn, (req, res) => {
+app.get('/practice/:aid/:qid', isloggedInAsStudent, (req, res) => {
   res.sendFile(path.join(__dirname + '/client/tmpl/practice.html'))
 })
 
-app.get('/practice/:qid', isloggedIn, (req, res) => {
+app.get('/practice/:qid', isloggedInAsStudent, (req, res) => {
   res.sendFile(path.join(__dirname + '/client/tmpl/practice.html'))
 })
 
-app.get('/student/account', isloggedIn, (req, res) => {
+app.get('/student/account', isloggedInAsStudent, (req, res) => {
   res.sendFile(path.join(__dirname + '/client/tmpl/account.html'))
 })
 
-app.get('/admin/assignment/:aid', isloggedIn, (req, res) => {
+app.get('/admin/assignment/:aid', isloggedInAsAdmin, (req, res) => {
   res.sendFile(path.join(__dirname + '/client/tmpl/createAssignment.html'))
+})
+
+app.get('*', (req, res) => {
+  res.redirect('/');
 })
 
 const PORT = process.env.PORT || 5000
