@@ -49,7 +49,7 @@ module.exports = app => {
                     result.assignments[i].grade+= 1/result.assignments[i].number
                     break
                 }
-            
+
             }
             student_table.updateOne( { "username": req.params.username}, { $set: { "assignments" : result.assignments } })
 

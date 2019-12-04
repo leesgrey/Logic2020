@@ -34,44 +34,75 @@ app.use(cors());
 console.log(__dirname)
 app.use(Express.static(__dirname + "/client"));
 
+// express-session for managing user sessions
+const session = require('express-session');
+// Create a session cookie
+app.use(session({
+  secret: 'oursecret',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    expires: 1800000,
+    httpOnly: true
+  }
+}));
+// Our own express middleware to check for
+// an active user on the session cookie (indicating a logged in user.)
+const sessionChecker = (req, res, next) => {
+  if (req.session.user) {
+    console.log("Checking session: " + req.session.user);
+    res.redirect('/student/dashboard'); // redirect to dashboard if logged in.
+  } else {
+    next(); // next() moves on to the route.
+  }
+};
+
+const isloggedIn = (req, res, next) => {
+  if (req.session.user) {
+    next();
+  } else {
+    res.redirect('/'); // redirect to dashboard if logged in.
+  }
+};
+
 require('./routes/questionRoutes')(app)
 require('./routes/studentRoutes')(app)
 require('./routes/assRoutes')(app)
 require('./routes/authRoutes')(app)
 
-app.get('/', (req, res) => {
+app.get('/', sessionChecker, (req, res) => {
     res.sendFile(path.join(__dirname + '/client/tmpl/index.html'));
 });
 
-app.get('/admin/dashboard', (req, res) => {
+app.get('/admin/dashboard', isloggedIn, (req, res) => {
   res.sendFile(path.join(__dirname + '/client/tmpl/professorDashboard.html'))
 })
 
-app.get('/admin/course', (req, res) => {
+app.get('/admin/course', isloggedIn, (req, res) => {
   res.sendFile(path.join(__dirname + '/client/tmpl/professorCourse.html'))
 })
 
-app.get('/admin/account', (req, res) => {
+app.get('/admin/account', isloggedIn, (req, res) => {
   res.sendFile(path.join(__dirname + '/client/tmpl/professorAccount.html'))
 })
 
-app.get('/student/dashboard', (req, res) => {
+app.get('/student/dashboard', isloggedIn, (req, res) => {
   res.sendFile(path.join(__dirname + '/client/tmpl/dashboard.html'))
 })
 
-app.get('/practice/:aid/:qid', (req, res) => {
+app.get('/practice/:aid/:qid', isloggedIn, (req, res) => {
   res.sendFile(path.join(__dirname + '/client/tmpl/practice.html'))
 })
 
-app.get('/practice/:qid', (req, res) => {
+app.get('/practice/:qid', isloggedIn, (req, res) => {
   res.sendFile(path.join(__dirname + '/client/tmpl/practice.html'))
 })
 
-app.get('/student/account', (req, res) => {
+app.get('/student/account', isloggedIn, (req, res) => {
   res.sendFile(path.join(__dirname + '/client/tmpl/account.html'))
 })
 
-app.get('/admin/assignment/:aid', (req, res) => {
+app.get('/admin/assignment/:aid', isloggedIn, (req, res) => {
   res.sendFile(path.join(__dirname + '/client/tmpl/createAssignment.html'))
 })
 

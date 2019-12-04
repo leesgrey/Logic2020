@@ -4,29 +4,50 @@
 const idInput = document.querySelector('#userName');
 const pwInput = document.querySelector('#passWord');
 const loginButton = document.querySelector('#loginButton');
+let students = []
 
 // add event listener to login
 loginButton.addEventListener('click', checkCredentials);
 pwInput.addEventListener('keyup', checkEnter);
 
+
 // check login credentials and go to appropriate dashboard
 function checkCredentials(e) {
-  if (idInput.value == 'user' && pwInput.value == 'user'){
-    window.location.href = '/student/dashboard';
-  }
-  else if (idInput.value == 'admin' && pwInput.value == 'admin'){
-    document.location.href = '/admin/dashboard';
-  }
-  else {
-    let field = document.querySelector('#errorMessage');
-    let message = document.createElement('p');
-    if (field.innerHTML.trim().length === 0) {
-      message.innerHTML = "*username or password entered is incorrect";
-      message.style.color = "red"
+  const user = idInput.value
+  const pw = pwInput.value
+
+  let userInfo = {
+    username: user,
+    password: pw
+  };
+
+  fetch('/api/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8'
+    },
+    body: JSON.stringify(userInfo)
+  }).then((res) => {
+    if (res.status === 200) {
+      document.location.href = '/student/dashboard';
+      return 0;
+    } else {
+      if (user=='admin' && pw=='admin'){
+        document.location.href = '/admin/dashboard';
+      } else {
+        let field = document.querySelector('#errorMessage');
+        let message = document.createElement('p');
+        if (field.innerHTML.trim().length === 0) {
+          message.innerHTML = "*username or password entered is incorrect";
+          message.style.color = "#FF357B"
+        }
+        field.appendChild(message)
+      }
+      return 0;
     }
-    field.appendChild(message)
-  }
+  });
 }
+
 
 // if enter pressed on pwInput, click button
 function checkEnter(e) {
