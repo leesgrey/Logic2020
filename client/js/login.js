@@ -41,10 +41,12 @@ function checkCredentials(e) {
       return 0;
     }
   }).then(function(body){
-    if (body.type === "student") {
+    if (body.data.type === "student") {
       document.location.href = '/student/dashboard';
-    } else {
+    } else if (body.data.type === "admin") {
       document.location.href = '/admin/dashboard';
+    } else {
+      return;
     }
   });
 }
