@@ -47,7 +47,7 @@ module.exports = app => {
         });
     })
 
-    //update an ass
+    //update an assignment
     app.put('/api/ass/:aid', (req, res) => {
 
          aid = req.params.aid

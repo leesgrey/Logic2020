@@ -23,7 +23,6 @@ getAllQuestions()
 
 function getAssignment(mode) {
   const url = "/api/ass/" + mode
-  console.log(url)
   fetch(url).then((res) => {
     if (res.status === 200) {
       return res.json()
@@ -62,7 +61,11 @@ function updateQuestions() {
     const newLink = document.createElement('a')
     newLink.id = q.qid
     newLink.classList.add("questionLink")
+    console.log("newLink:")
+    console.log(newLink)
     newLink.addEventListener("click", addQuestion)
+    console.log("added event listener to")
+    console.log(newLink)
     newLink.innerHTML = `<li class="questionListItem"><p class="red-txt">` + q.qid+ `</p><p class="questionPreviewText sm-txt">` + q.question + `</p></li>`
     allList.appendChild(newLink)
     return 0
@@ -71,6 +74,7 @@ function updateQuestions() {
 
 function loadAssignmentQuestions() {
   assignmentQuestions.map( (q) => {
+    console.log("loading question " + q)
     const newDiv = document.createElement("div")
     newDiv.classList.add("selectedQuestion")
     newDiv.innerHTML = '<li class="selectedQuestionListItem"><p class="red-txt">' + q + '</p></li>';
@@ -83,8 +87,9 @@ function loadAssignmentQuestions() {
     document.getElementById('selectedQuestionList').appendChild(newDiv);
 
     document.getElementById(q).children[0].classList.add("done")
-    console.log(document.getElementById(q))
     document.getElementById(q).removeEventListener("click", addQuestion)
+    console.log("removed event listener from")
+    console.log(document.getElementById(q))
 
     unsavedAssignmentQuestions.push(q)
   })
@@ -92,7 +97,6 @@ function loadAssignmentQuestions() {
 
 
 function updateAssignment(e) {
-  console.log(assignmentDate)
   e.preventDefault()
   let request = null
 
@@ -120,7 +124,6 @@ function updateAssignment(e) {
   }
   fetch(request).then(function(res) {
     if (res.status === 200) {
-      console.log("Added assignment")
       alert("Assignment created!")
       window.location.href = "/admin/dashboard"
     } else {
@@ -148,6 +151,7 @@ for (let i = 0; i < questions.length; i++) {
 updateAssignmentButton.addEventListener("click", updateAssignment)
 
 function addQuestion(e) {
+  console.log("adding question")
   console.log(e.target)
   const q = e.target
   const newDiv = document.createElement("div")
@@ -157,11 +161,15 @@ function addQuestion(e) {
   link.classList.add("closeButton")
   link.classList.add("removeSelectedQuestionBtn")
   link.addEventListener("click", removeQuestion)
+  console.log("added event listener too")
+  console.log(link)
   newDiv.appendChild(link)
 
   document.getElementById('selectedQuestionList').appendChild(newDiv);
-  e.target.classList.add("done")
-  e.target.parentElement.removeEventListener("click", addQuestion)
+  e.target.parentElement.classList.add("done")
+  e.target.parentElement.parentElement.removeEventListener("click", addQuestion)
+  console.log("removed event listener from")
+  console.log(e.target.parentElement)
 
   unsavedAssignmentQuestions.push(e.target.innerText)
 }
