@@ -123,6 +123,11 @@ app.get('/api/student/login', isloggedInAsStudent, (req, res) => {
   res.send({"user": req.session.user})
 })
 
+app.get('/api/getCurrentUserInfo', isloggedInAsStudent, (req, res) => {
+  req.url = '/api/students/'+ req.session.user;
+  return app._router.handle(req, res);
+})
+
 app.get('*', (req, res) => {
   res.redirect('/');
 })

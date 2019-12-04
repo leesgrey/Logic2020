@@ -10,7 +10,6 @@ let students = []
 loginButton.addEventListener('click', checkCredentials);
 pwInput.addEventListener('keyup', checkEnter);
 
-let omg;
 // check login credentials and go to appropriate dashboard
 function checkCredentials(e) {
   const user = idInput.value
