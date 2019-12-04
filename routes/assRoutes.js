@@ -2,6 +2,8 @@
 // new Student({username: "student", password: "password", first_name: "samin", last_name: "khan", grades: {"A1: 0}})
 
 module.exports = app => {
+
+    //get all asses
     app.get("/api/ass", (req, res) => {
         ass_table.find({}).toArray((error, result) => {
             if(error) {
@@ -11,6 +13,7 @@ module.exports = app => {
         });
     });
 
+    //post an ass
     app.post("/api/ass", (req, res) => {
         const name = req.body.name
         const q_ids = req.body.q_ids
@@ -32,6 +35,9 @@ module.exports = app => {
     });
 
 
+
+
+
     //get specific Assignment
     app.get('/api/ass/:aid', (req, res) => {
         ass_table.findOne({ "aid": req.params.aid }, (error, result) => {
@@ -41,4 +47,22 @@ module.exports = app => {
             res.send(result);
         });
     })
+
+    //update an ass
+    app.put('/api/ass/:aid', (req, res) => {
+
+         aid = req.params.aid
+        name = req.body.name
+        date = req.body.date
+        question = req.body.question
+
+        ass_table.updateOne( { "aid": aid}, { $push: { "questions" : question}, $set: {"name": name, "date": date}}).catch((error) => {
+            console.log(questions)
+            res.status(500).send() 
+        });
+        res.send({"aid": aid,"name": name, "date": date, "question": question})
+    })
+
+
+
 }
