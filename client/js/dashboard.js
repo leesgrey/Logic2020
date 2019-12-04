@@ -49,7 +49,7 @@ function getAssignments() {
       newTitle.innerText = myAssignments[i].name;
       newHeader.appendChild(newTitle);
       const newDueDate = document.createElement('p');
-      newDueDate.innerText = "Due " + myAssignments[i].due;
+      newDueDate.innerText = "Due " + myAssignments[i].due.slice(0,10);
       newHeader.appendChild(newDueDate);
   //    const newCompletion = document.createElement('p');
   //    newCompletion.innerText = myAssignments[i].completed / myAssignments[i].total + "% completed"

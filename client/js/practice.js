@@ -101,7 +101,7 @@ function updateAssignment(e) {
     "name": assignmentName.value,
     "q_ids": unsavedAssignmentQuestions,
     "aid": mode === "new" ? assignmentCount : mode,
-    "due": assignmentDate.value
+    "due": new Date(assignmentDate.value + "T23:59:00")
   }
 
   if (mode === "new") {
@@ -121,6 +121,8 @@ function updateAssignment(e) {
   fetch(request).then(function(res) {
     if (res.status === 200) {
       console.log("Added assignment")
+      alert("Assignment created!")
+      window.location.href = "/admin/dashboard"
     } else {
       alert("Could not add assignment")
     }
