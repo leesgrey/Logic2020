@@ -4,12 +4,13 @@ let currentAid = ""
 let currentAssignment = {}
 let questionTexts = []
 let user = ""
+let userSolutions = {}
 
 // ID of currently displayed question
 curURL = window.location.href.split('/')
 currentQuestion = curURL.pop();
-curAssignment = curURL.pop();
-//
+currentAid = curURL.pop();
+
 // get DOM elements
 const assignmentTitle = document.querySelector('#assignmentTitle');
 const assignmentDue = document.querySelector('#assignmentDue');
@@ -79,20 +80,23 @@ function getAssignments() {
     if (myAssignments.length == 0 || currentAid == "practice") {
       assignmentSidebar.style.display = "none";
     } else {
-      // displayAssignment(myAssignments[0].aid)
-      // TODO replace 0 with link aid from url
+      displayAssignment(currentAid)
+      /*
       for (let i = 0; i < myAssignments.length; i++) {
         if (myAssignments[i].aid === curAssignment) {
           displayAssignment(i);
           break;
         }
       }
+      */
     }
   });
 }
 
 function displayAssignment(position){
+  console.log("displaying assignment at position" + position)
   const thisA = myAssignments[position];
+
   assignmentTitle.innerText = thisA.name;
   const due = new Date(thisA.due);
   let formattedDate = `${due.getFullYear()}/${due.getMonth()}/${due.getDate()} 23:59`;
@@ -109,10 +113,11 @@ function displayAssignment(position){
       alert('Could not get solution question');
     }
   }).then((json) => {
+    userSolutions = json.solutions
 
     // for each question, add to sidebar - requires server calls
     for (let i = 0; i < thisA.questions.length; i++){
-      const questionUrl = `/practice/${curAssignment}/${thisA.questions[i]}`;
+      const questionUrl = `/practice/${currentAid}/${thisA.questions[i]}`;
 
       newQuestion = document.createElement('a');
       newQuestion.href = questionUrl;
@@ -127,14 +132,13 @@ function displayAssignment(position){
         done = 'done';
       }
       const innerSidebar = `
-      <li class="questionListItem ${done}">
+      <li id=${thisA.questions[i]} class="questionListItem ${done}">
         <p class="cyan-txt">${thisA.questions[i]}</p>
       </li>
       `;
 
       newQuestion.innerHTML = innerSidebar;
       questionList.append(newQuestion);
-
 
       // fetch(questionUrl).then((res) => {
       //   if (res.status === 200) {
@@ -203,12 +207,9 @@ function checkAnswer(){
     feedbackText.className = "";
     feedbackText.classList.add("mint-txt");
     feedbackText.innerText = "Correct!";
-    /* if (!questions[currentQuestion].completed){
-      questions[currentQuestion].completed = true;
-      myAssignments[0].completed++;
-      updateAssignment();
-    }
-    */
+
+    userSolutions[currentQuestion] = questionAnswer
+    document.getElementById(currentQuestion).classList.add("done")
   }
   else {
     feedbackText.className = "";
