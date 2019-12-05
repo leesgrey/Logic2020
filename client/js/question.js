@@ -255,9 +255,7 @@ function updateStudent(){
   fetch(request).then(function(res) {
     if (res.status === 200) {
       return res.json()
-      alert("Yeet")
     } else {
-      alert("Bad")
     }
   }).then((json) => {
     console.log(json.currentAid)
