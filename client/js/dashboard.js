@@ -1,9 +1,11 @@
 "use strict";
 const API_URL = 'http://localhost:5000'
+let user = ""
 
 // get DOM elements
 const assignmentBox = document.querySelector('#assignments');
 let myAssignments = [];
+let grades = []
 let numberOfAssignments = 0;
 
 class Assignment {
@@ -21,7 +23,6 @@ class Assignment {
 // GETs all assignments, adds them to assignment list
 function getAssignments() {
   const url = API_URL + '/api/ass'
-  console.log(url)
   fetch(url).then((res) => {
     if (res.status == 200){
       return res.json()
@@ -29,11 +30,11 @@ function getAssignments() {
       alert('Could not get assignments')
     }
   }).then((json) => {
-    console.log(json)
     myAssignments = json
 
     assignmentBox.innerHTML = '';
     for (let i = 0; i < myAssignments.length; i++){
+      console.log(myAssignments[i].aid)
       const newCardContainer = document.createElement('div');
       newCardContainer.classList.add('flex-item');
       const newLink = document.createElement('a');
@@ -51,13 +52,40 @@ function getAssignments() {
       const newDueDate = document.createElement('p');
       newDueDate.innerText = "Due " + myAssignments[i].due.slice(0,10);
       newHeader.appendChild(newDueDate);
-  //    const newCompletion = document.createElement('p');
-  //    newCompletion.innerText = myAssignments[i].completed / myAssignments[i].total + "% completed"
-  //    newHeader.appendChild(newCompletion);
+      const newCompletion = document.createElement('p');
+      newCompletion.id = myAssignments[i].aid
+      newCompletion.innerText = "Progress:\n"
+      newHeader.appendChild(newCompletion);
 
       assignmentBox.appendChild(newCardContainer);
     }
-  })
+  }).then(() => {
+      fetch("/api/student/login").then((res) => {
+        if (res.status === 200) {
+          return res.json()
+        } else {
+          alert("Could not get current user")
+        }
+      }).then((json) => {
+        user = json.user
+        return json.user
+      }).then((currentUser) => {
+        fetch("/api/students/" + currentUser).then((res) => {
+          if (res.status === 200) {
+            return res.json()
+          } else {
+            alert ("Could not get current user")
+          }
+        }).then((json) => {
+          grades = json.assignments
+          return 0
+        }).then(() => {
+          myAssignments.map((a) => {
+            document.getElementById(a.aid).innerText += grades[a.aid]
+          })
+        })
+      })
+    })
 }
 
 // get current assignments - requires server call
