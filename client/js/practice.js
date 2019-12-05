@@ -119,13 +119,12 @@ function removeQuestion(id) {
 function updateAssignment(e) {
   e.preventDefault()
   let request = null;
-  console.log("date:" + assignmentDate.value);
   const ddate = new Date(assignmentDate.value);
-  console.log("ddddate:" + ddate);
+  console.log("assignment count:" + assignmentCount);
   let data = {
     "name": assignmentName.value,
     "question": unsavedAssignmentQuestions,
-    "aid": mode === "new" ? assignmentCount : mode,
+    "aid": (mode === "new" ? assignmentCount.toString() : mode),
     "due": ddate
   };
 

@@ -4,7 +4,7 @@ let currentAid = ""
 let currentAssignment = {}
 let questionTexts = []
 let user = ""
-let userSolutions = {}
+let currentUser = {}
 
 // ID of currently displayed question
 curURL = window.location.href.split('/')
@@ -39,6 +39,20 @@ fetch('/api/student/login').then((res) => {
   return 0
 }).then(() => {
   console.log(user)
+  return 0
+}).then(() => {
+  fetch("/api/students/" + user).then((res) => {
+    if (res.status === 200) {
+      return res.json()
+    } else {
+      alert("Could not get current user")
+    }
+  }).then((json) => {
+    currentUser = json
+  })
+}).then(() => {
+  getQuestion()
+  getAssignments()
 })
 
 // get question text and answer, should get from server
@@ -113,8 +127,6 @@ function displayAssignment(position){
       alert('Could not get solution question');
     }
   }).then((json) => {
-    userSolutions = json.solutions
-
     // for each question, add to sidebar - requires server calls
     for (let i = 0; i < thisA.questions.length; i++){
       const questionUrl = `/practice/${currentAid}/${thisA.questions[i]}`;
@@ -208,7 +220,14 @@ function checkAnswer(){
     feedbackText.classList.add("mint-txt");
     feedbackText.innerText = "Correct!";
 
-    userSolutions[currentQuestion] = questionAnswer
+    console.log(currentQuestion)
+    console.log(currentUser.solutions)
+    if (!(currentQuestion in currentUser.solutions)) {
+      console.log("gonna update student")
+      currentUser.solutions[currentQuestion] = questionAnswer
+      console.log(currentUser.solutions)
+      window.setTimeout(updateStudent, 0);
+    }
     document.getElementById(currentQuestion).classList.add("done")
   }
   else {
@@ -219,11 +238,34 @@ function checkAnswer(){
   feedbackText.style.display = "block";
 }
 
+function wrapper() {
+
+  return 0
+}
+
+function updateStudent(){
+  const studentUrl = ("/api/students/" + user)
+
+  const request = new Request(studentUrl, {
+    method: 'put',
+    body: JSON.stringify(currentUser),
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      'Content-Type': 'application/json'
+    },
+  });
+
+  fetch(request).then(function(res) {
+    if (res.status === 200) {
+      alert("Yeet")
+    } else {
+      alert("Bad")
+    }
+  })
+}
+
 //updateQuestion(0);
 //updateAssignment();
-
-getQuestion()
-getAssignments()
 
 answerInput.addEventListener("keyup", event => {
   if (event.isComposing || event.keyCode === 229) {
