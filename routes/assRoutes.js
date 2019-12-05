@@ -33,10 +33,6 @@ module.exports = app => {
         res.send({ "name": name, "aid": aid, "questions": q_ids })
     });
 
-
-
-
-
     //get specific Assignment
     app.get('/api/ass/:aid', (req, res) => {
         ass_table.findOne({ "aid": req.params.aid }, (error, result) => {

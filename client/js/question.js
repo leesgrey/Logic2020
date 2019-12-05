@@ -38,7 +38,6 @@ fetch('/api/student/login').then((res) => {
   user = json["user"]
   return 0
 }).then(() => {
-  console.log(user)
   return 0
 }).then(() => {
   fetch("/api/students/" + user).then((res) => {
@@ -49,10 +48,14 @@ fetch('/api/student/login').then((res) => {
     }
   }).then((json) => {
     currentUser = json
+  }).then(() => {
+    getQuestion()
+    getAssignments()
+    return 0
+  }).then(() => {
+    assignmentCompletion.innerText = currentUser.assignments[currentAid]
+    setTimeout(0, updateStudent)
   })
-}).then(() => {
-  getQuestion()
-  getAssignments()
 })
 
 // get question text and answer, should get from server
@@ -108,14 +111,12 @@ function getAssignments() {
 }
 
 function displayAssignment(position){
-  console.log("displaying assignment at position" + position)
   const thisA = myAssignments[position];
 
   assignmentTitle.innerText = thisA.name;
   const due = new Date(thisA.due);
   let formattedDate = `${due.getFullYear()}/${due.getMonth()}/${due.getDate()} 23:59`;
   assignmentDue.innerText = formattedDate;
-  // assignmentCompletion.innerText = (myAssignments[0].completed / myAssignments[0].total).toFixed(2) * 100 + '%';
   questionList.innerHTML = "";
 
   // fetching solutions
@@ -137,7 +138,6 @@ function displayAssignment(position){
       let answer;
 
       if (thisA.questions[i] in json.solutions){
-        console.log(thisA.questions[i] + "in solutions")
         if (thisA.questions[i] === currentQuestion) {
           answerInput.value = json.solutions[thisA.questions[i]]
         }
@@ -159,7 +159,6 @@ function displayAssignment(position){
       //     alert('Could not get assignment question')
       //   }
       // }).then((json) => {
-      //   console.log(json)
       //   newQuestion = document.createElement('li');
       //   newQuestion.classList.add('questionListItem');
       //   newQuestionType = document.createElement('p');
@@ -220,12 +219,8 @@ function checkAnswer(){
     feedbackText.classList.add("mint-txt");
     feedbackText.innerText = "Correct!";
 
-    console.log(currentQuestion)
-    console.log(currentUser.solutions)
     if (!(currentQuestion in currentUser.solutions)) {
-      console.log("gonna update student")
       currentUser.solutions[currentQuestion] = questionAnswer
-      console.log(currentUser.solutions)
       window.setTimeout(updateStudent, 0);
     }
     document.getElementById(currentQuestion).classList.add("done")
@@ -244,6 +239,7 @@ function wrapper() {
 }
 
 function updateStudent(){
+  console.log("here")
   const studentUrl = ("/api/students/" + user)
 
   const request = new Request(studentUrl, {
@@ -255,17 +251,21 @@ function updateStudent(){
     },
   });
 
+  console.log("here again")
+
   fetch(request).then(function(res) {
     if (res.status === 200) {
+      return res.json()
       alert("Yeet")
     } else {
       alert("Bad")
     }
+  }).then((json) => {
+    console.log(json.currentAid)
+    assignmentCompletion.innerText = json.currentAid
   })
+  console.log("finished update")
 }
-
-//updateQuestion(0);
-//updateAssignment();
 
 answerInput.addEventListener("keyup", event => {
   if (event.isComposing || event.keyCode === 229) {
