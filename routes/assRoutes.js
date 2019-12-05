@@ -48,18 +48,17 @@ module.exports = app => {
     })
 
     //update an assignment
-    app.put('/api/ass/:aid', (req, res) => {
+    app.post('/api/ass/:aid', (req, res) => {
+      aid = req.body.aid
+      name = req.body.name
+      question = req.body.question
+      due = req.body.due
 
-         aid = req.params.aid
-        name = req.body.name
-        date = req.body.date
-        question = req.body.question
-
-        ass_table.updateOne( { "aid": aid}, { $push: { "questions" : question}, $set: {"name": name, "date": date}}).catch((error) => {
-            console.log(questions)
-            res.status(500).send() 
-        });
-        res.send({"aid": aid,"name": name, "date": date, "question": question})
+      ass_table.updateOne({"aid": aid}, {$set: {"questions": question, "name": name, "due": due}}).catch((error) => {
+        console.log(questions)
+        res.status(500).send()
+      });
+      res.send({"aid": aid,"name": name, "question": question});
     })
 
 

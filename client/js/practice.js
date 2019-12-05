@@ -13,14 +13,6 @@ let allQuestions = []
 // parse ending
 const mode = window.location.href.split('/').pop()
 
-if (mode==="new"){
-  getAssignment("")
-} else {
-  getAssignment(mode)
-}
-
-getAllQuestions()
-
 function getAssignment(mode) {
   const url = "/api/ass/" + mode
   fetch(url).then((res) => {
@@ -52,131 +44,124 @@ function getAllQuestions() {
     }
   }).then((json) => {
     allQuestions = json
-    updateQuestions()
+    showQuestions();
   })
 }
 
-function updateQuestions() {
-  allQuestions.map( (q) => {
-    const newLink = document.createElement('a')
-    newLink.id = q.qid
-    newLink.classList.add("questionLink")
-    console.log("newLink:")
-    console.log(newLink)
-    newLink.addEventListener("click", addQuestion)
-    console.log("added event listener to")
-    console.log(newLink)
-    newLink.innerHTML = `<li class="questionListItem"><p class="red-txt">` + q.qid+ `</p><p class="questionPreviewText sm-txt">` + q.question + `</p></li>`
-    allList.appendChild(newLink)
-    return 0
-  })
+function showQuestions() {
+  // Building a list of all questions
+  var promise = new Promise(function(resolve, reject) {
+    allQuestions.map((q) => {
+      const newLink = document.createElement('div')
+      newLink.innerHTML = `<a id="${q.qid}" class="questionLink">
+      <li class="questionListItem">
+        <p class="cyan-txt">${q.qid}</p>
+        <p class="questionPreviewText sm-txt">${q.question}</p>
+      </li></a>`;
+      allList.appendChild(newLink.children[0]);
+    });
+    resolve(1);
+  });
+
+  // Going through and
+  promise.then(function(val) {
+    // get DOM elements
+    const questions = document.getElementsByClassName('questionLink');
+
+    // Add questionLink
+    for (let i = 0; i < questions.length; i++) {
+      const question = questions[i];
+      question.onclick = function() {
+        if (question.children[0].classList.contains("done")) {
+          removeQuestion(question.id);
+        } else {
+          addQuestion(question.id);
+          question.children[0].classList.add("done");
+        }
+      }
+    }
+  });
+
 }
 
 function loadAssignmentQuestions() {
   assignmentQuestions.map( (q) => {
-    console.log("loading question " + q)
-    const newDiv = document.createElement("div")
-    newDiv.classList.add("selectedQuestion")
-    newDiv.innerHTML = '<li class="selectedQuestionListItem"><p class="red-txt">' + q + '</p></li>';
-    const link = document.createElement("a")
-    link.classList.add("closeButton")
-    link.classList.add("removeSelectedQuestionBtn")
-    link.addEventListener("click", removeQuestion)
-    newDiv.appendChild(link)
-
-    document.getElementById('selectedQuestionList').appendChild(newDiv);
-
-    document.getElementById(q).children[0].classList.add("done")
-    document.getElementById(q).removeEventListener("click", addQuestion)
-    console.log("removed event listener from")
-    console.log(document.getElementById(q))
-
-    unsavedAssignmentQuestions.push(q)
+    addQuestion(q);
   })
 }
 
+function addQuestion(id) {
+  const q = document.getElementById(id);
+  const qt = q.children[0].children[0].innerText;
+  const newDiv = document.createElement("div")
+  newDiv.innerHTML = `<div id="selected_${id}">
+    <li class="selectedQuestionListItem">
+      <p class="cyan-txt">${qt}</p>
+      <a class="closeButton removeSelectedQuestionBtn" href="javascript: removeQuestion('${id}')"></a>
+    </li>
+  <div>`;
+  document.getElementById('selectedQuestionList').appendChild(newDiv.children[0]);
+  document.getElementById(id).children[0].classList.add("done");
+
+  unsavedAssignmentQuestions.push(id);
+}
+
+function removeQuestion(id) {
+  const sq = document.getElementById("selected_"+id);
+  sq.parentNode.removeChild(sq);
+  const selected_q = document.getElementById('selected_' + id);
+  const q = document.getElementById(id);
+  q.children[0].classList.remove("done");
+
+  unsavedAssignmentQuestions = unsavedAssignmentQuestions.filter(qid => qid != id);
+}
 
 function updateAssignment(e) {
   e.preventDefault()
-  let request = null
-
-  let url = ""
+  let request = null;
+  console.log("date:" + assignmentDate.value);
+  const ddate = new Date(assignmentDate.value);
+  console.log("ddddate:" + ddate);
   let data = {
     "name": assignmentName.value,
-    "q_ids": unsavedAssignmentQuestions,
+    "question": unsavedAssignmentQuestions,
     "aid": mode === "new" ? assignmentCount : mode,
-    "due": new Date(assignmentDate.value + "T23:59:00")
-  }
+    "due": ddate
+  };
 
+  let url = "";
   if (mode === "new") {
-    url = "/api/ass"
-
-    request = new Request(url, {
-      method: 'post',
-      body: JSON.stringify(data),
-      headers: {
-         'Accept': 'application/json, text/plain, */*',
-         'Content-Type': 'application/json'
-      },
-    })
+    url = "/api/ass";
   } else {
-    url = "/api/ass/mode"
+    url = "/api/ass/" + mode;
   }
+
+  request = new Request(url, {
+    method: 'POST',
+    body: JSON.stringify(data),
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      'Content-Type': 'application/json'
+    },
+  })
+
   fetch(request).then(function(res) {
     if (res.status === 200) {
       alert("Assignment created!")
-      window.location.href = "/admin/dashboard"
+      window.location.href = "/admin/dashboard";
     } else {
       alert("Could not add assignment")
     }
   })
 }
 
-/*
-// Add questionLink
-for (let i = 0; i < questions.length; i++) {
-  const question = questions[i];
-  question.onclick = function() {
-    if (question.children[0].classList.contains("done")) {
-      removeQuestion(question.id);
-    } else {
-      addQuestion(question.id);
-      question.children[0].classList.add("done");
-    }
-  }
+
+// ----------- Main -----------
+getAllQuestions();
+
+if (mode==="new") {
+  getAssignment("");
+} else {
+  getAssignment(mode);
 }
-
-*/
-
-updateAssignmentButton.addEventListener("click", updateAssignment)
-
-function addQuestion(e) {
-  console.log("adding question")
-  console.log(e.target)
-  const q = e.target
-  const newDiv = document.createElement("div")
-  newDiv.classList.add("selectedQuestion")
-  newDiv.innerHTML = '<li class="selectedQuestionListItem"><p class="red-txt">' + e.target.innerText + '</p></li>';
-  const link = document.createElement("a")
-  link.classList.add("closeButton")
-  link.classList.add("removeSelectedQuestionBtn")
-  link.addEventListener("click", removeQuestion)
-  console.log("added event listener too")
-  console.log(link)
-  newDiv.appendChild(link)
-
-  document.getElementById('selectedQuestionList').appendChild(newDiv);
-  e.target.parentElement.classList.add("done")
-  e.target.parentElement.parentElement.removeEventListener("click", addQuestion)
-  console.log("removed event listener from")
-  console.log(e.target.parentElement)
-
-  unsavedAssignmentQuestions.push(e.target.innerText)
-}
-
-function removeQuestion(e) {
-  e.target.parentElement.remove()
-  unsavedAssignmentQuestions = unsavedAssignmentQuestions.filter(qid => qid != e.target.parentElement.children[0].children[0].innerText)
-  document.getElementById(e.target.parentElement.children[0].children[0].innerText).addEventListener("click", addQuestion)
-  document.getElementById(e.target.parentElement.children[0].children[0].innerText).children[0].classList.remove("done")
-}
+updateAssignmentButton.addEventListener("click", updateAssignment);
