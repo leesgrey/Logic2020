@@ -8,7 +8,8 @@ const studentSchema = new Schema({
     first_name: String,
     last_name: String,
     grades: Array,
-    solved: Array
+    solutions: Object,
+    assignments: Object
 });
 
 mongoose.model('students', studentSchema);
