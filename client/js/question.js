@@ -239,10 +239,6 @@ function wrapper() {
 }
 
 function updateStudent(){
-<<<<<<< HEAD
-=======
-  console.log("here")
->>>>>>> fd31587a62849ec12a60a52b0b760ecb9852727b
   const studentUrl = ("/api/students/" + user)
 
   const request = new Request(studentUrl, {
